@@ -1,24 +1,10 @@
-import express, { Request, Response } from "express"; 
+import express from "express"; 
+import { router } from "./routes";
 
 const server = express();
 
-server.get("/", (req: Request, res: Response) => {
-  res.send("Tudo OK, oi");
-});  
-
-server.get("/user",(req: Request, res: Response) => {
-  const usuarios = [
-    {
-      nome: "Wellington",
-      idade: 33
-    },
-    {
-      nome: "Urbano",
-      idade: 30
-    }
-  ];
-  res.send(usuarios);
-});
+server.use(express.json());
+server.use(router);
 
 export default server;
 
