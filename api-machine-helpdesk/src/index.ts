@@ -1,7 +1,7 @@
-import server from './server/Server';
+import server from "./server/Server";
 
-const PORT = 3000
+const PORT = 3000;
 
 server.listen(PORT, () => {
-    console.log(`Serviso rodando na porta ${PORT}`)
-})
+  console.log(`Serviso rodando na porta ${PORT}`);
+});
