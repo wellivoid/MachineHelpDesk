@@ -2,22 +2,22 @@
   "name": "api-machine-helpdesk",
   "version": "1.0.0",
   "description": "",
-  "license": "ISC",
-  "author": "Wellington S. Urbano",
-  "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "start": "npx tsc-watch --onSuccess \"node ./lib/index.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "express": "^4.21.2"
   },
   "devDependencies": {
+    "@tsconfig/recommended": "^1.0.8",
     "@types/express": "^5.0.0",
-    "ts-node-dev": "^2.0.0",
+    "@types/node": "^22.13.1",
+    "tsc-watch": "^6.2.1",
     "typescript": "^5.7.3"
-  }  
-   
+  }
 }
-
-  
