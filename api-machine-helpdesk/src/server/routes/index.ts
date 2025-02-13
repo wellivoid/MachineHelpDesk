@@ -1,16 +1,15 @@
-import { Router, Request, Response } from "express"; 
-import { StatusCodes } from "http-status-codes";
+import { Router, Request, Response } from 'express'; 
+// import { StatusCodes } from 'http-status-codes';
+import { CalledControllers } from './../controllers';
 
 const router =  Router();
 
-router.get("/", (req: Request, res: Response) => {
-  res.send("Tudo OK, oi");
+router.get('/', (req: Request, res: Response) => {
+  res.send('Tudo OK, oi');
 }); 
 
-router.post("/test", (req: Request, res: Response) => {
-  console.log(req);
-  res.status(StatusCodes.OK).json(req.body);
-}); 
+router.post('/test', CalledControllers.create); 
+
 
 
 
