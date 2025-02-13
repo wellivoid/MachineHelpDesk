@@ -8,7 +8,7 @@ router.get('/', (req: Request, res: Response) => {
   res.send('Tudo OK, oi');
 }); 
 
-router.post('/test', CalledControllers.create); 
+router.post('/called', CalledControllers.create); 
 
 
 
