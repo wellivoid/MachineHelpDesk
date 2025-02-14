@@ -27,4 +27,19 @@ export class CreateController {
   
 }
 
-//export default CalledControllers;
+
+/*Exemplo 
+// Schema contendo validação para `body` e `query`
+export const calledSchema = {
+  body: yup.object({
+    title: yup.string().required('O título é obrigatório').min(5),
+    description: yup.string().required(),
+    priority: yup.string().oneOf(['low', 'medium', 'high']),
+    userId: yup.number().required().positive(),
+  }),
+  query: yup.object({
+    search: yup.string().optional().min(3),
+    page: yup.number().positive().integer(),
+  }),
+};
+*/
