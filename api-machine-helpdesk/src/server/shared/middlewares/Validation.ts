@@ -36,3 +36,4 @@ const validate = (schema: SchemaType) => {
 
 export default validate;
 
+

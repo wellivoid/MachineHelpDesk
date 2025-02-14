@@ -4,26 +4,27 @@ import validate from '../../shared/middlewares/Validation';
 import { StatusCodes } from 'http-status-codes';
 
 
-export const calledSchema = yup.object({
-  title: yup.string().required().min(5),
-  description: yup.string().required(),
-  priority: yup.string().oneOf(['low', 'medium', 'high']),
-  userId: yup.number().required().positive(),
-});
+export const getAlldSchema = { 
+  query:  yup.object({
+    page: yup.number().notRequired().moreThan(0),
+    limit: yup.number().notRequired().moreThan(0),
+    filter: yup.string().notRequired(),
+  })
+};
 
-interface ICalledCreate extends yup.InferType<typeof calledSchema> {}
+interface IQueryProps extends yup.InferType<typeof getAlldSchema.query> {}
 
-export class CreateController {
+export class GetAllController {
     
   // Middleware de validação antes do create
-  static createValidation = validate(calledSchema);
+  static getAllValidation = validate(getAlldSchema);
 
-  static create (req: Request<{},{},ICalledCreate>, res: Response)  {
+  static getAll (req: Request<{},{},{},IQueryProps>, res: Response)  {
 
-    console.log(req.body);
+    console.log(req.query);
 
 
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Não implementado Create!');
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Não implementado GetAll!');
   }
   
 }
