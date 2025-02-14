@@ -4,7 +4,7 @@ import validate from '../../shared/middlewares/Validation';
 import { StatusCodes } from 'http-status-codes';
 
 
-export const getAlldSchema = { 
+const getAlldSchema = { 
   query:  yup.object({
     page: yup.number().notRequired().moreThan(0),
     limit: yup.number().notRequired().moreThan(0),

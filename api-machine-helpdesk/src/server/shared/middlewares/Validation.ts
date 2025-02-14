@@ -1,39 +1,31 @@
 import { Request, Response, NextFunction } from 'express';
-import { AnyObject, ObjectSchema, ValidationError } from 'yup';
+import * as yup from 'yup';
 
-type SchemaType = ObjectSchema<AnyObject> | { body?: ObjectSchema<AnyObject>; params?: ObjectSchema<AnyObject>; query?: ObjectSchema<AnyObject>; headers?: ObjectSchema<AnyObject>; };
-
-const validate = (schema: SchemaType) => {
-  return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const validate = (schema: { body?: yup.ObjectSchema<any>; params?: yup.ObjectSchema<any>; query?: yup.ObjectSchema<any>; headers?: yup.ObjectSchema<any> }) => {
+  return async (req: Request, res: Response, next: NextFunction): Promise<void> => { //  Retorno `void`
     try {
-      const errors: { field: string | undefined; message: string }[] = [];
+      if (schema.body) req.body = await schema.body.validate(req.body, { abortEarly: false, stripUnknown: true });
+      if (schema.params) req.params = await schema.params.validate(req.params, { abortEarly: false, stripUnknown: true });
+      if (schema.query) req.query = await schema.query.validate(req.query, { abortEarly: false, stripUnknown: true });
+      if (schema.headers) req.headers = await schema.headers.validate(req.headers, { abortEarly: false, stripUnknown: true });
 
-      // Se for um schema único, assume que é o `body`
-      const schemas = (schema instanceof ObjectSchema) ? { body: schema } : schema;
-
-      // Validação dinâmica
-      for (const key of Object.keys(schemas)) {
-        const schemaKey = key as keyof typeof schemas;
-        if (schemas[schemaKey]) {
-          await schemas[schemaKey]!.validate(req[schemaKey], { abortEarly: false }).catch((err: ValidationError) => {
-            errors.push(...err.inner.map(e => ({ field: `${schemaKey}.${e.path}`, message: e.message })));
-          });
-        }
+      return next(); // Apenas chama `next()`
+    } catch (err) {
+      if (err instanceof yup.ValidationError) {
+        res.status(400).json({ 
+          errors: err.inner.map(error => ({
+            field: error.path,
+            message: error.message
+          }))
+        });
+        return; //  Garante que a função termina aqui (evita retorno de `Response`)
       }
 
-      if (errors.length > 0) {
-        res.status(400).json({ errors });
-        return;
-      }
-
-      next();
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      res.status(500).json({ message: 'Erro inesperado na validação' });
+      res.status(500).json({ message: 'Erro interno no servidor.' });
+      return; //  Evita erro de tipo
     }
   };
 };
 
 export default validate;
-
-

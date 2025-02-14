@@ -4,14 +4,16 @@ import validate from '../../shared/middlewares/Validation';
 import { StatusCodes } from 'http-status-codes';
 
 
-export const calledSchema = yup.object({
-  title: yup.string().required().min(5),
-  description: yup.string().required(),
-  priority: yup.string().oneOf(['low', 'medium', 'high']),
-  userId: yup.number().required().positive(),
-});
+const calledSchema = {
+  body: yup.object({
+    title: yup.string().required().min(5),
+    description: yup.string().required(),
+    priority: yup.string().required().oneOf(['low', 'medium', 'high']),
+    userId: yup.number().required().positive(),
+  })
+};
 
-interface ICalledCreate extends yup.InferType<typeof calledSchema> {}
+interface ICalledCreate extends yup.InferType<typeof calledSchema.body> {}
 
 export class CreateController {
     
