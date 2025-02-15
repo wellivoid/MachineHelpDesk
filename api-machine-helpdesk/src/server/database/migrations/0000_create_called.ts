@@ -7,11 +7,11 @@ export async function up (knex: Knex) {
     .schema
     .createTable(EtableNames.called, table => {
       table.bigIncrements('id').primary().index();
-      table.string('title').index().notNullable();
-      table.text('description').index().notNullable();
-      table.string('priority', 12).index().notNullable();
+      table.string('title').checkLength('<=', 200).index().notNullable();
+      table.text('description').checkLength('<=', 5000).notNullable();
+      table.string('priority', 12).checkLength('<=', 12).index().notNullable();
       table.integer('userId').index().notNullable();
-      table.string('status', 12).index().notNullable();
+      table.string('status', 12).checkLength('<=', 12).index().notNullable();
 
       table.comment('Tabela para armazenar os chamados');
      

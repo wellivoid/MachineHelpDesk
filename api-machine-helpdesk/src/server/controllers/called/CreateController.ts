@@ -2,14 +2,16 @@ import { Request, Response } from 'express';
 import * as yup from 'yup';
 import validate from '../../shared/middlewares/Validation';
 import { StatusCodes } from 'http-status-codes';
+import { calledProvider } from '../../database/providers/called';
 
 
 const calledSchema = {
   body: yup.object({
-    title: yup.string().required().min(5),
-    description: yup.string().required(),
+    title: yup.string().required().min(5).max(200),
+    description: yup.string().required().max(5000).transform((value) => JSON.stringify(value)),
     priority: yup.string().required().oneOf(['low', 'medium', 'high']),
     userId: yup.number().required().positive(),
+    status: yup.string().required().oneOf(['Open']),
   })
 };
 
@@ -20,12 +22,25 @@ export class CreateController {
   // Middleware de validação antes do create
   static createValidation = validate(calledSchema);
 
-  static create (req: Request<{},{},ICalledCreate>, res: Response)  {
+  static async create (req: Request<{},{},ICalledCreate>, res: Response)  {
+    // const bodyCreate: ICalledCreate = {
+    //   ...req.body,   
+    //   status: 'Open', 
+    // };    
 
-    console.log(req.body);
+    const result = await calledProvider.create(req.body);
 
+    if (result instanceof Error) {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        errors:{
+          default: result.message
+        }
+      });   
+      return;  
+    }
  
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Não implementado Create!');
+    res.status(StatusCodes.CREATED).json(result);
+    return;
   }
   
 }

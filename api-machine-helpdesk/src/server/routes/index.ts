@@ -15,8 +15,4 @@ router.get('/called/:id', CalledControllers.getByIdValidation, CalledControllers
 router.put('/called/:id', CalledControllers.updateByIdValidation, CalledControllers.updateById); 
 router.delete('/called/:id', CalledControllers.deleteByIdValidation, CalledControllers.deleteById); 
 
-//Users
-
-
-
 export { router };
