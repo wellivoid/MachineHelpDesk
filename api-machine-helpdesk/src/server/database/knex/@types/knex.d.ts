@@ -1,9 +1,8 @@
-
+import { ICalled } from './../../models';
 
 declare module 'knex/types/tables' {
     interface Tables {
-        //called: ICalled 
-        //pessoa: IPessoa
-        //usuario: IUsuario 
+        called: ICalled 
+
     }
 }

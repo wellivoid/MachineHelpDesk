@@ -13,7 +13,7 @@ const calledSchema = {
   })
 };
 
-interface ICalledCreate extends yup.InferType<typeof calledSchema.body> {}
+export interface ICalledCreate extends yup.InferType<typeof calledSchema.body> {}
 
 export class CreateController {
     
@@ -24,7 +24,7 @@ export class CreateController {
 
     console.log(req.body);
 
-
+ 
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Não implementado Create!');
   }
   

@@ -12,7 +12,7 @@ const updateSchema = {
     title: yup.string().required().min(5),
     description: yup.string().required(),
     priority: yup.string().required().oneOf(['low', 'medium', 'high']),
-    statusCalled: yup.string().required().oneOf(['Open', 'In progress', 'Resolved','Closed']),
+    status: yup.string().required().oneOf(['Open', 'In progress', 'Resolved','Closed']),
     userId: yup.number().required().positive(),
   })
 };
@@ -33,7 +33,7 @@ export class UpdateByIdController {
         'title': req.body.title,
         'description': req.body.description,
         'priority': req.body.priority,
-        'statusCalled': req.body.statusCalled,
+        'status': req.body.status,
         'userId': req.body.userId  
       }
     );

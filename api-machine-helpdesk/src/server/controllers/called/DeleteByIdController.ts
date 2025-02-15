@@ -9,7 +9,7 @@ const deleteByIdSchema = {
   })
 };
 
-//interface IParamsProps extends yup.InferType<typeof deleteByIdSchema.params> {}
+//interface ICalledCreate extends yup.InferType<typeof deleteByIdSchema.params> {}
 
 export class DeleteByIdController {
     
