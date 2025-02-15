@@ -15,6 +15,7 @@ coverage
 *.local
 /lib
 .env
+.sqlite
 
 /cypress/videos/
 /cypress/screenshots/
