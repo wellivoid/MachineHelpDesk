@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import * as yup from 'yup';
 import validate from '../../shared/middlewares/Validation';
 import { StatusCodes } from 'http-status-codes';
+import { CalledProvider } from '../../database/providers/called';
 
 
 const getAlldSchema = { 
@@ -12,36 +13,43 @@ const getAlldSchema = {
   })
 };
 
-interface IQueryProps extends yup.InferType<typeof getAlldSchema.query> {}
+interface IQueryProps extends yup.InferType<typeof getAlldSchema.query> {
+  id?: number; // Tornar opcional para evitar erro de tipagem
+}
+
 
 export class GetAllController {
     
   // Middleware de validação antes do create
   static getAllValidation = validate(getAlldSchema);
 
-  static getAll (req: Request<{},{},{},IQueryProps>, res: Response)  {
+  static async getAll (req: Request<{},{},{},IQueryProps>, res: Response)  {
+    const { page, limit, filter, id } = req.query;
+    
+    
+    const result = await CalledProvider.getAll(page || 1, limit || 10, filter || '', id);
+    const count = await CalledProvider.count(filter || '');
 
-    console.log(req.query);
+    if (result instanceof Error ){
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        errors: {
+          default: result.message
+        }
+      });
+      return;
+    } else if (count instanceof Error) {
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        errors:{ default: count.message }
+      });
+      return;
+    }
 
 
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send('Não implementado GetAll!');
+    res.setHeader('access-control-expose-headers', 'x-total-count');
+    res.setHeader('x-total-count', count);
+
+    res.status(StatusCodes.OK).json(result);
+    return;
   }
   
 }
-
-
-/*Exemplo 
-// Schema contendo validação para `body` e `query`
-export const calledSchema = {
-  body: yup.object({
-    title: yup.string().required('O título é obrigatório').min(5),
-    description: yup.string().required(),
-    priority: yup.string().oneOf(['low', 'medium', 'high']),
-    userId: yup.number().required().positive(),
-  }),
-  query: yup.object({
-    search: yup.string().optional().min(3),
-    page: yup.number().positive().integer(),
-  }),
-};
-*/

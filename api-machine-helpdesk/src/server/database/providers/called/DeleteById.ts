@@ -4,15 +4,17 @@ import { Knex } from '../../knex';
 
 
 
-export const getById = async (id: number): Promise<number | Error> => {
+export const deleteById = async (id: number): Promise<void | Error> => {
+  
   try {
     const result = await Knex(EtableNames.called)
       .where('id', '=', id).del();
         
-    if (result > 0) return result;
+    if (result > 0) return;
 
     return new Error('Erro ao apagar o chamado');
   } catch (error) {
     return new Error('Erro ao apagar o chamado'); 
   }
 };
+

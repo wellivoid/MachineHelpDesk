@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import * as yup from 'yup';
 import validate from '../../shared/middlewares/Validation';
 import { StatusCodes } from 'http-status-codes';
-import { calledProvider } from '../../database/providers/called';
+import { CalledProvider } from '../../database/providers/called';
 
 
 const calledSchema = {
@@ -23,12 +23,8 @@ export class CreateController {
   static createValidation = validate(calledSchema);
 
   static async create (req: Request<{},{},ICalledCreate>, res: Response)  {
-    // const bodyCreate: ICalledCreate = {
-    //   ...req.body,   
-    //   status: 'Open', 
-    // };    
 
-    const result = await calledProvider.create(req.body);
+    const result = await CalledProvider.create(req.body);
 
     if (result instanceof Error) {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -36,7 +32,7 @@ export class CreateController {
           default: result.message
         }
       });   
-      return;  
+        
     }
  
     res.status(StatusCodes.CREATED).json(result);
@@ -45,19 +41,3 @@ export class CreateController {
   
 }
 
-
-/*Exemplo 
-// Schema contendo validação para `body` e `query`
-export const calledSchema = {
-  body: yup.object({
-    title: yup.string().required('O título é obrigatório').min(5),
-    description: yup.string().required(),
-    priority: yup.string().oneOf(['low', 'medium', 'high']),
-    userId: yup.number().required().positive(),
-  }),
-  query: yup.object({
-    search: yup.string().optional().min(3),
-    page: yup.number().positive().integer(),
-  }),
-};
-*/

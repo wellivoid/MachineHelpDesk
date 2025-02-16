@@ -7,7 +7,7 @@ import { ICalled } from '../../models';
 
 export const getAll = async (page: number,limit: number, filter: string, id = 0): Promise<ICalled[] | Error> => {
   try {
-    const result: ICalled[] = await Knex(EtableNames.called)
+    const result = await Knex(EtableNames.called)
       .select('*')
       .where('id', '=', Number(id))
       .orWhere('title', 'like' ,`%${filter}%`)

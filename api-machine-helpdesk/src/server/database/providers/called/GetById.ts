@@ -7,7 +7,7 @@ import { ICalled } from '../../models';
 
 export const getById = async (id: number): Promise<ICalled | Error> => {
   try {
-    const result:ICalled | undefined = await Knex(EtableNames.called)
+    const result = await Knex(EtableNames.called)
       .select('*')
       .where('id', '=', id)
       .first();
