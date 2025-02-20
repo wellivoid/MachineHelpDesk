@@ -1,20 +1,19 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite";
-import path from 'path';
+import Aura from '@primevue/themes/aura';
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: [
-    '@nuxtjs/i18n',
-    // Passando opções diretamente no módulo
-    [
-      '@nuxtjs/i18n',
-      {
-        vueI18n: path.resolve(__dirname, 'src','i18n','index') // Se estiver usando um caminho customizado
+  modules: ['@primevue/nuxt-module', '@nuxtjs/i18n'],
+primevue: {
+  options: {
+      theme: {
+          preset: Aura
       }
-    ]
-  ],
-  css: ['~/assets/css/main.css'],
+  }
+},
+  css: ['~/assets/css/main.css'], 
   vite: {
     plugins: [
       tailwindcss(),

@@ -50,20 +50,20 @@ import * as dotenv from 'dotenv';
 import { Knex } from 'knex';
 import path from 'path';
 
-dotenv.config({ path: path.resolve(__dirname, '../../....//.env') });
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../../../../.env') });
+//dotenv.config();
 
 console.log('Variáveis de ambiente carregadas:');
-console.log('DB_HOST:', process.env.DB_HOST);
+// console.log('DB_HOST:', process.env.DB_HOST);
 
 const configKnex: Knex.Config = {
   client: 'mysql2',
   connection: {
-    host: '127.0.0.2',
-    port: 3306,
-    user: 'root',
-    password: 'Opus$$10',
-    database: 'db_helpdesk',
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT),
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
   },
   migrations: {
     directory: path.resolve(__dirname, '..','migrations')
@@ -75,12 +75,12 @@ const configKnex: Knex.Config = {
 
 export default configKnex;
 
-// console.log('Teste log');
-// console.log(process.env.DB_HOST);
-// console.log(process.env.DB_PORT);
-// console.log(process.env.DB_USER);
-// console.log(process.env.DB_PASSWORD);
-// console.log(process.env.DB_DATABASE);
+console.log('Teste log');
+console.log(process.env.DB_HOST);
+console.log(process.env.DB_PORT);
+console.log(process.env.DB_USER);
+console.log(process.env.DB_PASSWORD);
+console.log(process.env.DB_DATABASE);
 
 
 // host: process.env.DB_HOST || '127.0.0.2',
