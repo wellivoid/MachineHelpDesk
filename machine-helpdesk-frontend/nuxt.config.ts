@@ -5,7 +5,7 @@ import Aura from '@primevue/themes/aura';
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@primevue/nuxt-module', '@nuxtjs/i18n'],
+  modules: ['@primevue/nuxt-module', '@nuxtjs/i18n', '@pinia/nuxt'],
   primevue: {
     options: {
         theme: {
