@@ -16,9 +16,10 @@
     <label >ID Created: {{ createdRespId }}</label>
 
   </div> -->
-  <div>
+
+  <NuxtLayout>
     <NuxtPage />
-  </div>
+  </NuxtLayout>
 </template>
 
 <script setup>

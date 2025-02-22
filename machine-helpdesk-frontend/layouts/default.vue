@@ -1,0 +1,22 @@
+<template>
+  <div class="p-1 flex h-screen gap-1 bg-gray-500">
+    <div class="h-full w-44  bg-gray-200 rounded-md">
+      <MenuMyPanelMenu />
+    </div>
+    <div class=" w-full flex flex-col  gap-1">
+      <div class="h-10 bg-gray-200 rounded-md">
+        02
+      </div>
+      <div class="flex-1 bg-amber-300 rounded-md">
+        <slot />
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+</script>
+
+<style lang="scss" scoped>
+
+</style>
