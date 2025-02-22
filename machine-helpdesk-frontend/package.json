@@ -24,6 +24,8 @@
     "vue-router": "latest"
   },
   "devDependencies": {
-    "@primevue/nuxt-module": "^4.2.5"
+    "@nuxt/eslint": "^1.1.0",
+    "@primevue/nuxt-module": "^4.2.5",
+    "eslint": "^9.21.0"
   }
 }
