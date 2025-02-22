@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-definePageMeta({
-  layout: 'exibicao',
-});
+// definePageMeta({
+//   layout: 'exibicao',
+// });
 </script>
