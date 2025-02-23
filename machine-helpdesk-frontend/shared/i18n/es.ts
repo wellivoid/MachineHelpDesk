@@ -13,4 +13,6 @@ export const es = {
   called: 'Llamado',
   setting: 'Ajustes',
   signOut: 'Finalizar la sesión',
+  called_create: '- Crear',
+  index: '',
 };

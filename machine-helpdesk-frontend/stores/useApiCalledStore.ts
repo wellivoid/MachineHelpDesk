@@ -58,5 +58,16 @@ export const useApiCalledStore = defineStore('called', () => {
     }
     return respGetAll.value;
   };
-  return { create, getAll };
+
+  //
+  const totalCountCalled = ref(0);
+  const getTotalCountCalled = async () => {
+    const response = await axios.get('http://localhost:3333/called?page=1&limit=10000');
+
+    const totalCount = Number(response.headers['x-total-count']); // ✅ Funciona com Axios!
+
+    totalCountCalled.value = totalCount;
+    return totalCount.valueOf;
+  };
+  return { create, getAll, getTotalCountCalled, totalCountCalled };
 });

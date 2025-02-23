@@ -13,4 +13,6 @@ export const en = {
   called: 'Called',
   setting: 'Settings',
   signOut: 'Sign Out',
+  called_create: '- Create',
+  index: '',
 };

@@ -10,6 +10,21 @@
       pt:root:class="h-90"
       pt:tableContainer:class="max-h-max"
     >
+      <template #header>
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="text-xl font-bold">{{ $t('called') }}</span>
+
+          <Button
+            severity="secondary"
+            rounded
+            class=""
+            @click="[fetchCalls(), fetchTotalCountCalld()]"
+          >
+            <!-- <IconsReflech class="h-4" /> -->
+            <IconsUploadIcon />
+          </Button>
+        </div>
+      </template>
       <Column
         field="id"
         header="ID"
@@ -51,6 +66,16 @@
 </template>
 
 <script setup>
+import { IconsUploadIcon } from '#components';
+
+// const fatchCountList = async () => {
+//   const response = await fetch('http://localhost:3333/called?page=1&limit=10000');
+
+//   const totalCount = response.headers.get('x-total-count'); // ✅ Agora funciona!
+
+//   console.log('Total Count:', totalCount);
+// };
+
 // const customers = ref();
 
 const { $toast } = useNuxtApp();
@@ -59,13 +84,18 @@ const selectRow = (data) => {
 };
 // const calledStore = useApiCalledStore();
 const getAllCalled = ref([]);
-
 const fetchCalls = async () => {
   const store = useApiCalledStore();
   getAllCalled.value = await store.getAll(); // Aguarda os dados corretamente
 };
 
+const fetchTotalCountCalld = async () => {
+  const store = useApiCalledStore();
+  return store.getTotalCountCalled();
+};
+
 onMounted(() => {
   fetchCalls();
+  fetchTotalCountCalld();
 });
 </script>

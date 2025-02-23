@@ -2,7 +2,6 @@
   <div class="p-2">
     <PanelMenu
       :model="items"
-      class=" "
     />
   </div>
 </template>

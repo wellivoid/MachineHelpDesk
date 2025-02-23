@@ -13,4 +13,6 @@ export const pt = {
   called: 'Chamados',
   setting: 'Configurações',
   signOut: 'Sair',
+  called_create: '- Criar',
+  index: '',
 };
