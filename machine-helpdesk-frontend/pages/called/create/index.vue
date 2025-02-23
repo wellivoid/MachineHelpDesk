@@ -73,17 +73,9 @@ const listPriority = ref([
   { name: t('high'), code: 'high' },
 ]);
 
-// watch(selectedPriority, (newPriority) => {
-//   if (newPriority) {
-//     data.value.priority = newPriority.code;
-//     // console.log(data);
-//   }
-// });
-
 watch(selectedPriority, (newPriority: { code: string }) => {
   if (newPriority) {
     data.value.priority = newPriority.code;
-    console.log(data);
   }
 });
 
@@ -94,13 +86,13 @@ const calledStore = useApiCalledStore();
 const createdRespId = ref('');
 const createCalled = async () => {
   createdRespId.value = await calledStore.create(data.value);
-  // try {
+  // const id = Number(createdRespId.value); // Converte para número
 
-  //   toastMy.success('Chamado criado com sucesso');
-  // }
+  // if (!isNaN(id) && Number.isInteger(id)) {
+  //   console.log(createdRespId.value);
 
-  // catch (error) {
-  //   toastMy.error(`Erro ao criar chamado: ${error}`);
+  //   await navigateTo('/');
   // }
+  // // console.log('Tipo:', typeof createdRespId.value, 'Valor:', createdRespId.value);
 };
 </script>

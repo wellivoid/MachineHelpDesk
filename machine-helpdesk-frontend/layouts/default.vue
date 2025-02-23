@@ -3,8 +3,8 @@
     <div class="h-full w-44 md:w-60  bg-gray-200 rounded-md">
       <MenuMyPanelMenu />
     </div>
-    <div class=" w-full flex flex-col  gap-1">
-      <div class="h-10 bg-gray-200 rounded-md ">
+    <div class=" w-full flex flex-col  gap-1 ">
+      <div class="min-h-10 bg-gray-200 rounded-md ">
         <h1>Machine HelpDesk</h1>
       </div>
       <div class="flex-1 bg-gray-200 rounded-md">
