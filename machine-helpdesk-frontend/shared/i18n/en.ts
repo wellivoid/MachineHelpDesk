@@ -8,4 +8,9 @@ export const en = {
   high: 'High',
   createTicket: 'Create ticket',
   status: 'Status',
+  tickets: 'Tickets',
+  new: 'New',
+  called: 'Called',
+  setting: 'Settings',
+  signOut: 'Sign Out',
 };

@@ -8,4 +8,9 @@ export const es = {
   high: 'Alta',
   createTicket: 'Crear ticket',
   status: 'Status',
+  tickets: 'Entradas',
+  new: 'Nuevo',
+  called: 'Llamado',
+  setting: 'Ajustes',
+  signOut: 'Finalizar la sesión',
 };

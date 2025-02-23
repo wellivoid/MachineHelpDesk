@@ -8,4 +8,9 @@ export const ptBr = {
   high: 'Alta',
   createTicket: 'Criar chamado',
   status: 'Status',
+  tickets: 'Tickets',
+  new: 'Novo',
+  called: 'Chamados',
+  setting: 'Configurações',
+  signOut: 'Sair',
 };

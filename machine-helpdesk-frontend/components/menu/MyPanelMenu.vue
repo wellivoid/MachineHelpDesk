@@ -8,20 +8,21 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
 const items = ref([
   {
-    label: 'Called',
+    label: t('called'),
     // icon: 'pi pi-file',
     items: [
       {
-        label: 'Call list',
+        label: t('tickets'),
         // icon: 'pi pi-plus',
         command: () => {
           navigateTo('/');
         },
       },
       {
-        label: 'New',
+        label: t('new'),
         // icon: 'pi pi-search',
         command: () => {
           navigateTo('/called/create');
@@ -37,7 +38,7 @@ const items = ref([
     ],
   },
   {
-    label: 'Setting',
+    label: t('setting'),
     // icon: 'pi pi-cloud',
     items: [
       {
@@ -57,7 +58,7 @@ const items = ref([
     ],
   },
   {
-    label: 'Sign Out',
+    label: t('signOut'),
     // icon: 'pi pi-sign-out',
     command: () => {
 
