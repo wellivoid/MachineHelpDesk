@@ -1,4 +1,4 @@
-export const ptBr = {
+export const pt = {
   welcome: 'Bem vindo',
   title: 'Título',
   description: 'Descrição',

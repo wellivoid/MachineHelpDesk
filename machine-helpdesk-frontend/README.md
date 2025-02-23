@@ -72,4 +72,9 @@ yarn preview
 bun run preview
 ```
 
+Command start production:
+```bash
+# pnpm
+pnpm nuxt start
+```
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
