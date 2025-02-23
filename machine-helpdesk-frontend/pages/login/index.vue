@@ -1,13 +1,17 @@
 <template>
   <div>
     Tela de login
+    <Button
+      label="Notify !"
+      @click="$toast('Hello World I am toast.')"
+    />
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const { $toast } = useNuxtApp();
 
 onMounted(() => {
-  $toast.error('Toast adicionado com sucesso!!!');
+  ;
 });
 </script>

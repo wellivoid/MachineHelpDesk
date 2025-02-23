@@ -1,11 +1,13 @@
+import { en } from './shared/i18n/en';
+import { es } from './shared/i18n/es';
+import { ptBr } from './shared/i18n/pt';
 
 export default defineI18nConfig(() => ({
   legacy: false,
-  locale: "pt",
-    messages: {
-      en: { welcome: "Welcome" },
-      pt: { welcome: "Bem-vindo" },
-      es: { welcome: "Bem-vindo" },
-    },
-  }));
-  
+  locale: 'en',
+  messages: {
+    en: en,
+    pt: ptBr,
+    es: es,
+  },
+}));

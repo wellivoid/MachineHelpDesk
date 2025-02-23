@@ -33,7 +33,7 @@ export default defineNuxtConfig({
       { code: 'pt', iso: 'pt-BR', name: 'Português' },
       { code: 'es', iso: 'es', name: 'Português' },
     ],
-    defaultLocale: 'pt',
+    defaultLocale: 'en',
     strategy: 'no_prefix',
     vueI18n: './i18n.config.ts', // Agora é uma string apontando para o arquivo
   },

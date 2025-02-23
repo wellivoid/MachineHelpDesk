@@ -14,17 +14,17 @@ const items = ref([
     // icon: 'pi pi-file',
     items: [
       {
-        label: 'New',
+        label: 'Call list',
         // icon: 'pi pi-plus',
         command: () => {
-          navigateTo('/called/create');
+          navigateTo('/');
         },
       },
       {
-        label: 'Search',
+        label: 'New',
         // icon: 'pi pi-search',
         command: () => {
-
+          navigateTo('/called/create');
         },
       },
       // {
