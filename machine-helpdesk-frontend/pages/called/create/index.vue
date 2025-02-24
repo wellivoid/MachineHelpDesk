@@ -21,7 +21,7 @@
         />
       </div>
       <div class="flex flex-col">
-        <label for="createPriority">{{ $t('status') }}</label>
+        <label for="createPriority">{{ $t('priority') }}</label>
         <Select
           id="createPriority"
           v-model="selectedPriority"

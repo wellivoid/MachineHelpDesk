@@ -17,4 +17,9 @@ export const en = {
   index: '',
   called_viewCall: '- View call',
   save: 'Save',
+  priority: 'Priority',
+  open: 'Open',
+  inProgress: 'In Progress',
+  resolved: 'Resolved',
+  closed: 'Closed',
 };

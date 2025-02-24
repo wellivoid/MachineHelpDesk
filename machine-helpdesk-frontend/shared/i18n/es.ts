@@ -17,5 +17,9 @@ export const es = {
   index: '',
   called_viewCall: '- Ver llamada',
   save: 'Guardar',
-
+  priority: 'Prioridad',
+  open: 'Abierta',
+  inProgress: 'En curso',
+  resolved: 'Resuelto',
+  closed: 'Cerrado',
 };

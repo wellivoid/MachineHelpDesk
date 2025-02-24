@@ -17,4 +17,9 @@ export const pt = {
   index: '',
   called_viewCall: '- Visualizar chamado',
   save: 'Salvar',
+  priority: 'Prioridade',
+  open: 'Aberto',
+  inProgress: 'Em andamento',
+  resolved: 'Resolvido',
+  closed: 'Fechado',
 };

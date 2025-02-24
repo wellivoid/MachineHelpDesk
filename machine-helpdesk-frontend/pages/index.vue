@@ -28,12 +28,12 @@
         field="id"
         header="ID"
         sortable
-        style="width: 25%"
+        style="width: 15%"
       />
       <Column
         field="title"
         header="Title"
-        style="width: 25%"
+        style="width: 35%"
         class="truncate max-w-48"
       />
       <Column
