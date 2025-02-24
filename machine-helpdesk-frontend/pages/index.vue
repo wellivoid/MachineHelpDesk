@@ -20,7 +20,6 @@
             class=""
             @click="[fetchCalls(), fetchTotalCountCalld()]"
           >
-            <!-- <IconsReflech class="h-4" /> -->
             <IconsUploadIcon />
           </Button>
         </div>
@@ -68,25 +67,14 @@
 <script setup>
 import { IconsUploadIcon } from '#components';
 
-// const fatchCountList = async () => {
-//   const response = await fetch('http://localhost:3333/called?page=1&limit=10000');
-
-//   const totalCount = response.headers.get('x-total-count'); // ✅ Agora funciona!
-
-//   console.log('Total Count:', totalCount);
-// };
-
-// const customers = ref();
-
-const { $toast } = useNuxtApp();
 const selectRow = (data) => {
-  $toast.success(`Open id: ${data.id}`);
+  navigateTo(`/called/viewcall?id=${data.id}`);
 };
-// const calledStore = useApiCalledStore();
+
 const getAllCalled = ref([]);
 const fetchCalls = async () => {
   const store = useApiCalledStore();
-  getAllCalled.value = await store.getAll(); // Aguarda os dados corretamente
+  getAllCalled.value = await store.getAll();
 };
 
 const fetchTotalCountCalld = async () => {

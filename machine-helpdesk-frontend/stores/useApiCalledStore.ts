@@ -59,7 +59,7 @@ export const useApiCalledStore = defineStore('called', () => {
     return respGetAll.value;
   };
 
-  //
+  // Informar quantidade de chamados no banco
   const totalCountCalled = ref(0);
   const getTotalCountCalled = async () => {
     const response = await axios.get('http://localhost:3333/called?page=1&limit=10000');
@@ -69,5 +69,54 @@ export const useApiCalledStore = defineStore('called', () => {
     totalCountCalled.value = totalCount;
     return totalCount.valueOf;
   };
-  return { create, getAll, getTotalCountCalled, totalCountCalled };
+
+  // Get By Id
+  const getById = async (id: number) => {
+    const respGetById = ref<IPropsCalled>();
+    try {
+      const httpGetById = await axios.get<IPropsCalled>(`http://localhost:3333/called/${id}`);
+      respGetById.value = httpGetById.data;
+      $toast.success(`Chamado de ${id} aberto com sucesso`);
+    }
+    catch (error) {
+      if (axios.isAxiosError(error)) {
+        $toast.error(`Erro ao abrir o chamado do id: ${id}`);
+      }
+      else {
+        $toast.error(`Erro ao abrir o chamado do id: ${id}`);
+      }
+    }
+    return respGetById.value;
+  };
+
+  // Update
+  const update = async (id: number, data: Omit<IPropsCalled, 'id'>) => {
+    const resp = ref('');
+    try {
+      const httpPost = await axios.put(`http://localhost:3333/called/${id}`, data);
+      if (httpPost.status == 204) {
+        navigateTo('/');
+      }
+      // resp.value = JSON.stringify(httpPost.data);
+      // const id = Number(resp.value);
+      // if (!isNaN(id) && Number.isInteger(id)) {
+      //   navigateTo('/');
+      // }
+    }
+    catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.message || error.message || 'Erro desconhecido';
+
+        $toast.error(`Erro ao atualizar o chamado`);
+
+        resp.value = `Erro: ${errorMessage}`;
+      }
+      else {
+        $toast.error(`Erro ao atualizar o chamado`);
+
+        resp.value = 'Erro na requisição';
+      }
+    }
+  };
+  return { create, getAll, getTotalCountCalled, totalCountCalled, getById, update };
 });

@@ -15,4 +15,6 @@ export const en = {
   signOut: 'Sign Out',
   called_create: '- Create',
   index: '',
+  called_viewCall: '- View call',
+  save: 'Save',
 };

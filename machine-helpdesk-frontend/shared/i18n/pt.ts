@@ -15,4 +15,6 @@ export const pt = {
   signOut: 'Sair',
   called_create: '- Criar',
   index: '',
+  called_viewCall: '- Visualizar chamado',
+  save: 'Salvar',
 };

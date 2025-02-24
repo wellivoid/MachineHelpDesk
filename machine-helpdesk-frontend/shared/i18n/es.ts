@@ -15,4 +15,7 @@ export const es = {
   signOut: 'Finalizar la sesión',
   called_create: '- Crear',
   index: '',
+  called_viewCall: '- Ver llamada',
+  save: 'Guardar',
+
 };
