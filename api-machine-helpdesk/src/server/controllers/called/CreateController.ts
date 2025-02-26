@@ -8,7 +8,7 @@ import { CalledProvider } from '../../database/providers/called';
 const calledSchema = {
   body: yup.object({
     title: yup.string().required().min(5).max(200),
-    description: yup.string().required().min(5).max(5000).transform((value) => JSON.stringify(value)),
+    description: yup.string().required().min(5).max(5000),
     priority: yup.string().required().oneOf(['low', 'medium', 'high']),
     userId: yup.number().required().positive(),
     status: yup.string().required().oneOf(['Open']),
