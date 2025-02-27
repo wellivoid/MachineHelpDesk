@@ -1,8 +1,17 @@
 <template>
-  <div class="p-2">
+  <div class="p-2  flex flex-col justify-between  h-full">
     <PanelMenu
+      multiple
       :model="items"
     />
+    <div class="">
+      <Button
+        :label="t('logout')"
+        icon="pi pi-sign-out"
+        class="flex-auto h-8"
+        outlined
+      />
+    </div>
   </div>
 </template>
 

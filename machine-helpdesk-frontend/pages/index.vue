@@ -12,7 +12,7 @@
     >
       <template #header>
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <span class="text-xl font-bold">{{ $t('called') }}</span>
+          <span class="text-2xl font-bold">{{ $t('called') }}</span>
 
           <Button
             severity="secondary"

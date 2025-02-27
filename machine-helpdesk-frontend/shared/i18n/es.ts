@@ -22,4 +22,5 @@ export const es = {
   inProgress: 'En curso',
   resolved: 'Resuelto',
   closed: 'Cerrado',
+  logout: 'Cerrar Sesión',
 };

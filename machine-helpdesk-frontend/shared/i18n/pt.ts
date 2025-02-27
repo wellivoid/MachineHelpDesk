@@ -22,4 +22,5 @@ export const pt = {
   inProgress: 'Em andamento',
   resolved: 'Resolvido',
   closed: 'Fechado',
+  logout: 'Sair',
 };

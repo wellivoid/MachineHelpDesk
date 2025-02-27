@@ -1,11 +1,11 @@
 <template>
-  <div class="p-1 flex h-screen gap-1 bg-gray-400">
+  <div class="p-1 flex h-screen gap-1 bg-gray-400 text-sm">
     <div class="h-full w-44 md:w-60  bg-gray-200 rounded-md">
       <MenuMyPanelMenu />
     </div>
     <div class=" w-full flex flex-col  gap-1 ">
-      <div class="min-h-10 bg-gray-200 rounded-md flex flex-wrap items-center justify-center gap-2">
-        <span class="font-bold text-blue-800">
+      <div class="min-h-10  bg-gray-200  rounded-md flex flex-wrap items-center justify-center gap-2">
+        <span class="font-bold text-blue-800 text-xl">
           Machine HelpDesk {{ $t(formattedPageActual) }}
         </span>
       </div>

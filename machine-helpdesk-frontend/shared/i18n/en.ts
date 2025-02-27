@@ -22,4 +22,5 @@ export const en = {
   inProgress: 'In Progress',
   resolved: 'Resolved',
   closed: 'Closed',
+  logout: 'Logout',
 };
