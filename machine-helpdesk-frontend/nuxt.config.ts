@@ -30,7 +30,7 @@ export default defineNuxtConfig({
     locales: [
       { code: 'en', iso: 'en-US', name: 'English' },
       { code: 'pt', iso: 'pt-BR', name: 'Português' },
-      { code: 'es', iso: 'es', name: 'Português' },
+      { code: 'es', iso: 'es', name: 'Portugués' },
     ],
     defaultLocale: 'en',
     strategy: 'no_prefix',

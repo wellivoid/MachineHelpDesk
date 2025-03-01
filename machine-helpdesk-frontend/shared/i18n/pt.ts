@@ -23,4 +23,10 @@ export const pt = {
   resolved: 'Resolvido',
   closed: 'Fechado',
   logout: 'Sair',
+  pt: 'PT',
+  en: 'EN',
+  es: 'ES',
+  portuguese: 'Português',
+  english: 'Inglês',
+  spanish: 'Espanhol',
 };

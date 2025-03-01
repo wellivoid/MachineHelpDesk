@@ -6,10 +6,9 @@
     />
     <div class="">
       <Button
-        :label="t('logout')"
+        :label="t('signOut')"
         icon="pi pi-sign-out"
-        class="flex-auto h-8"
-        outlined
+        class="flex-auto h-8  hover:!bg-neutral-100 hover:!text-green-600 w-full"
       />
     </div>
   </div>
@@ -65,13 +64,13 @@ const items = ref([
       // },
     ],
   },
-  {
-    label: t('signOut'),
-    // icon: 'pi pi-sign-out',
-    command: () => {
+  // {
+  //   label: t('signOut'),
+  //   // icon: 'pi pi-sign-out',
+  //   command: () => {
 
-    },
-  },
+  //   },
+  // },
 ]);
 </script>
 
