@@ -12,6 +12,7 @@ export async function up (knex: Knex) {
       table.string('priority', 12).checkLength('<=', 12).index().notNullable();
       table.integer('userId').index().notNullable();
       table.string('status', 12).checkLength('<=', 12).index().notNullable();
+      table.timestamp('createdAt').defaultTo(knex.fn.now()).notNullable();
 
       table.comment('Tabela para armazenar os chamados');
      
