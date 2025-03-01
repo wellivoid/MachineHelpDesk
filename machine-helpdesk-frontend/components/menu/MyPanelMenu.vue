@@ -16,7 +16,7 @@
 
 <script setup lang="ts">
 const { t } = useI18n();
-const items = ref([
+const items = computed(() => [
   {
     label: t('called'),
     // icon: 'pi pi-file',
