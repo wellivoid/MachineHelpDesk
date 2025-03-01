@@ -5,7 +5,7 @@ import { ICalled } from '../../models';
 
 
 
-export const create = async (called: Omit<ICalled, 'id'>): Promise<number | Error> => {
+export const create = async (called: Omit<ICalled, 'id' | 'createdAt'>): Promise<number | Error> => {
   try {
     const [result] = await Knex(EtableNames.called).insert(called);
     //console.log(result);

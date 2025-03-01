@@ -15,7 +15,7 @@ export const seed = async (knex: Knex) => {
   await knex(EtableNames.called).insert(calledToInsert);
 };
 
-const calledTestSeed: Omit<ICalled,'id'>[] = [
+const calledTestSeed: Omit<ICalled,'id' | 'createdAt'>[] = [
   {
     title: 'Title test 1',
     description:'Desc Test 1',

@@ -5,7 +5,7 @@ import { ICalled } from '../../models';
 
 
 
-export const updateById = async (id: number, called: Omit<ICalled, 'id'>): Promise<void | Error> => {
+export const updateById = async (id: number, called: Omit<ICalled, 'id' | 'createdAt'>): Promise<void | Error> => {
   try {
     const result = await Knex(EtableNames.called)
       .update(called)

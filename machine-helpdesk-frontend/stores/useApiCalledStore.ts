@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import { format } from 'date-fns';
 
 interface IPropsCalled {
   id: number;
@@ -8,15 +9,19 @@ interface IPropsCalled {
   priority: string;
   userId: number;
   status: string;
+  createdAt: string;
 }
 
 export const useApiCalledStore = defineStore('called', () => {
   const { $toast } = useNuxtApp();
+  const { locale } = useI18n();
+  const config = useRuntimeConfig();
+  const API_BASE_URL = config.public.API_BASE_URL; // Obtém a URL da API do .env
 
   const create = async (data: Omit<IPropsCalled, 'id'>) => {
     const resp = ref('');
     try {
-      const httpPost = await axios.post('http://localhost:3333/called', data);
+      const httpPost = await axios.post(`${API_BASE_URL}/called`, data);
       resp.value = JSON.stringify(httpPost.data);
       const id = Number(resp.value);
       if (!isNaN(id) && Number.isInteger(id)) {
@@ -44,8 +49,15 @@ export const useApiCalledStore = defineStore('called', () => {
   const getAll = async () => {
     const respGetAll = ref<IPropsCalled[]>([]);
     try {
-      const httpGetAll = await axios.get<IPropsCalled[]>('http://localhost:3333/called?page=1&limit=10000');
-      respGetAll.value = httpGetAll.data;
+      const httpGetAll = await axios.get<IPropsCalled[]>(`${API_BASE_URL}/called?page=1&limit=10000`, {
+        headers: {
+          'Accept-Language': locale.value, // Envia o idioma correto para a API
+        },
+      });
+      respGetAll.value = httpGetAll.data.map(chamado => ({
+        ...chamado,
+        createdAt: format(new Date(chamado.createdAt), locale.value.startsWith('pt') || locale.value.startsWith('es') ? 'dd/MM/yyyy - HH:mm:ss' : 'MM/dd/yyyy - HH:mm:ss'),
+      }));
       $toast.success('Atualização concluída com sucesso');
     }
     catch (error) {
@@ -62,7 +74,7 @@ export const useApiCalledStore = defineStore('called', () => {
   // Informar quantidade de chamados no banco
   const totalCountCalled = ref(0);
   const getTotalCountCalled = async () => {
-    const response = await axios.get('http://localhost:3333/called?page=1&limit=10000');
+    const response = await axios.get(`${API_BASE_URL}/called?page=1&limit=10000`);
 
     const totalCount = Number(response.headers['x-total-count']); // ✅ Funciona com Axios!
 
@@ -74,7 +86,7 @@ export const useApiCalledStore = defineStore('called', () => {
   const getById = async (id: number) => {
     const respGetById = ref<IPropsCalled>();
     try {
-      const httpGetById = await axios.get<IPropsCalled>(`http://localhost:3333/called/${id}`);
+      const httpGetById = await axios.get<IPropsCalled>(`${API_BASE_URL}/called/${id}`);
       respGetById.value = httpGetById.data;
       $toast.success(`Chamado de ${id} aberto com sucesso`);
     }
@@ -93,15 +105,10 @@ export const useApiCalledStore = defineStore('called', () => {
   const update = async (id: number, data: Omit<IPropsCalled, 'id'>) => {
     const resp = ref('');
     try {
-      const httpPost = await axios.put(`http://localhost:3333/called/${id}`, data);
+      const httpPost = await axios.put(`${API_BASE_URL}/called/${id}`, data);
       if (httpPost.status == 204) {
         navigateTo('/');
       }
-      // resp.value = JSON.stringify(httpPost.data);
-      // const id = Number(resp.value);
-      // if (!isNaN(id) && Number.isInteger(id)) {
-      //   navigateTo('/');
-      // }
     }
     catch (error) {
       if (axios.isAxiosError(error)) {

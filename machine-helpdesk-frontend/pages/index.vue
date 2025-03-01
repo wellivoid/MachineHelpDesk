@@ -40,13 +40,19 @@
         field="status"
         header="Status"
         sortable
-        style="width: 25%"
+        style="width: 15%"
       />
       <Column
         field="priority"
         header="Pririty"
         sortable
-        style="width: 25%"
+        style="width: 15%"
+      />
+      <Column
+        field="createdAt"
+        header="Created"
+        sortable
+        style="width: 40%"
       />
       <Column class="w-24 !text-end ">
         <template #body="{ data }">
