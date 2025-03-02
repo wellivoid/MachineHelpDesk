@@ -11,7 +11,7 @@ const calledSchema = {
     description: yup.string().required().min(5).max(5000),
     priority: yup.string().required().oneOf(['low', 'medium', 'high']),
     userId: yup.number().required().positive(),
-    status: yup.string().required().oneOf(['Open']),
+    status: yup.string().required().oneOf(['open']),
   })
 };
 

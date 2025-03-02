@@ -32,7 +32,7 @@
       />
       <Column
         field="title"
-        header="Title"
+        :header="t('title')"
         style="width: 35%"
         class="truncate max-w-48"
       />
@@ -41,16 +41,24 @@
         header="Status"
         sortable
         style="width: 15%"
-      />
+      >
+        <template #body="{ data }">
+          {{ t(`${data.status}`) }}
+        </template>
+      </Column>
       <Column
         field="priority"
-        header="Pririty"
+        :header="t('priority')"
         sortable
         style="width: 15%"
-      />
+      >
+        <template #body="{ data }">
+          {{ t(`${data.priority}`) }}
+        </template>
+      </Column>
       <Column
         field="createdAt"
-        header="Created"
+        :header="t('created')"
         sortable
         style="width: 40%"
       />
@@ -73,6 +81,7 @@
 <script setup>
 import { IconsUploadIcon } from '#components';
 
+const { t } = useI18n();
 const selectRow = (data) => {
   navigateTo(`/called/viewcall?id=${data.id}`);
 };

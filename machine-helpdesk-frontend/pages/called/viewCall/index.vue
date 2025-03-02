@@ -73,34 +73,39 @@ const data = ref<IPropsData>({
   description: '',
   priority: '',
   userId: 1,
-  status: 'Open',
+  status: 'open',
 });
 
-const selectedPriority = ref();
-const selectedStatus = ref();
+// const selectedPriority = ref();
+// const selectedStatus = ref();
 
-const listPriority = ref([
+const listPriority = computed(() => [
   { name: t('low'), code: 'low' },
   { name: t('medium'), code: 'medium' },
   { name: t('high'), code: 'high' },
 ]);
 
-const listStatus = ref([
-  { name: t('open'), code: 'Open' },
-  { name: t('inProgress'), code: 'In progress' },
-  { name: t('resolved'), code: 'Resolved' },
-  { name: t('closed'), code: 'Closed' },
+const listStatus = computed(() => [
+  { name: t('open'), code: 'open' },
+  { name: t('inProgress'), code: 'inProgress' },
+  { name: t('resolved'), code: 'resolved' },
+  { name: t('closed'), code: 'closed' },
 ]);
 
-watch(selectedPriority, (newPriority: { code: string }) => {
-  if (newPriority) {
-    data.value.priority = newPriority.code;
-  }
+// Computed para refletir e modificar `data.priority`
+const selectedPriority = computed({
+  get: () => listPriority.value.find(p => p.code === data.value.priority) || null,
+  set: (newPriority: { code: string } | null) => {
+    if (newPriority) data.value.priority = newPriority.code;
+  },
 });
-watch(selectedStatus, (newStatus: { code: string }) => {
-  if (newStatus) {
-    data.value.status = newStatus.code;
-  }
+
+// Computed para refletir e modificar `data.status`
+const selectedStatus = computed({
+  get: () => listStatus.value.find(s => s.code === data.value.status) || null,
+  set: (newStatus: { code: string } | null) => {
+    if (newStatus) data.value.status = newStatus.code;
+  },
 });
 
 const store = useApiCalledStore();

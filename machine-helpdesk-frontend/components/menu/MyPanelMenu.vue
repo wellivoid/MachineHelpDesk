@@ -1,8 +1,15 @@
 <template>
-  <div class="p-2  flex flex-col justify-between  h-full">
-    <PanelMenu
+  <div class="p-2  flex flex-col justify-between  h-full ">
+    <!-- <PanelMenu
       multiple
       :model="items"
+    /> -->
+    <Menu
+      :model="items "
+      class="w-full"
+      pt:root:class=""
+      pt:list:class=""
+      pt:iten:class=""
     />
     <div class="">
       <Button
@@ -23,57 +30,26 @@ const items = computed(() => [
     items: [
       {
         label: t('tickets'),
-        // icon: 'pi pi-plus',
+        icon: 'pi pi-list',
         command: () => {
           navigateTo('/');
         },
       },
       {
         label: t('new'),
-        // icon: 'pi pi-search',
+        icon: 'pi  pi-plus',
         command: () => {
           navigateTo('/called/create');
         },
       },
-      // {
-      //   label: 'Print',
-      //   icon: 'pi pi-print',
-      //   command: () => {
-      //     toast.add({ severity: 'error', summary: 'Error', detail: 'No printer connected', life: 3000 });
-      //   },
-      // },
     ],
   },
-  {
-    label: t('setting'),
-    // icon: 'pi pi-cloud',
-    items: [
-      {
-        label: 'User',
-        // icon: 'pi pi-cloud-download',
-        command: () => {
-
-        },
-      },
-      // {
-      //   label: 'Export',
-      //   icon: 'pi pi-cloud-upload',
-      //   command: () => {
-      //     toast.add({ severity: 'info', summary: 'Shared', detail: 'Exported to cloud', life: 3000 });
-      //   },
-      // },
-    ],
-  },
-  // {
-  //   label: t('signOut'),
-  //   // icon: 'pi pi-sign-out',
-  //   command: () => {
-
-  //   },
-  // },
 ]);
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css">
+.p-menu {
+    min-width: 6rem;
+    /* max-width: 6rem; */
+}
 </style>

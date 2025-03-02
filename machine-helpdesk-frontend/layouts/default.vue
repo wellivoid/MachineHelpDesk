@@ -1,14 +1,15 @@
 <template>
   <div class="p-1 flex h-screen gap-1 bg-gray-400 text-sm">
-    <div class="h-full w-44 md:w-60  bg-gray-200 rounded-md">
+    <div class="h-full w-32 md:w-44  bg-gray-200 rounded-md">
       <MenuMyPanelMenu />
     </div>
-    <div class=" w-full flex flex-col  gap-1 ">
+    <div class=" w-full flex flex-col gap-1 ">
       <div class="p-2 bg-gray-200  rounded-md flex flex-wrap items-center justify-center gap-2 relative">
         <span class="font-bold text-blue-800 text-xl">
           Machine HelpDesk {{ $t(pageActual) }}
         </span>
         <span class="absolute right-0 mr-2">
+          <span class="pi pi-globe mr-2" />
           <SplitButton
             :model="itemsSetLocale"
             :label="t(locale)"

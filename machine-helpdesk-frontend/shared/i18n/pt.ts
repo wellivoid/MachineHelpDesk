@@ -29,4 +29,5 @@ export const pt = {
   portuguese: 'Português',
   english: 'Inglês',
   spanish: 'Espanhol',
+  created: 'Criado',
 };

@@ -20,7 +20,7 @@ const calledTestSeed: Omit<ICalled,'id' | 'createdAt'>[] = [
     title: 'Title test 1',
     description:'Desc Test 1',
     priority: 'low',
-    status: 'Open',
+    status: 'open',
     userId: 1
   },
   {
@@ -34,7 +34,7 @@ const calledTestSeed: Omit<ICalled,'id' | 'createdAt'>[] = [
     title: 'Title test 3',
     description:'Desc Test 1',
     priority: 'high',
-    status: 'Open',
+    status: 'open',
     userId: 5
   }
 ];

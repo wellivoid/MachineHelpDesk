@@ -63,7 +63,7 @@ const data = ref<IPropsDataCreate>({
   description: '',
   priority: '',
   userId: 1,
-  status: 'Open',
+  status: 'open',
 });
 
 const selectedPriority = ref();

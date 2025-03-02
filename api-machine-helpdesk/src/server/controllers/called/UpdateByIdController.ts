@@ -13,7 +13,7 @@ const updateSchema = {
     title: yup.string().required().min(5),
     description: yup.string().required(),
     priority: yup.string().required().oneOf(['low', 'medium', 'high']),
-    status: yup.string().required().oneOf(['Open', 'In progress', 'Resolved','Closed']),
+    status: yup.string().required().oneOf(['open', 'inProgress', 'resolved','closed']),
     userId: yup.number().required().positive(),
   })
 };

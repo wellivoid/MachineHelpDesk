@@ -18,7 +18,7 @@ export const useApiCalledStore = defineStore('called', () => {
   const config = useRuntimeConfig();
   const API_BASE_URL = config.public.API_BASE_URL; // Obtém a URL da API do .env
 
-  const create = async (data: Omit<IPropsCalled, 'id'>) => {
+  const create = async (data: Omit<IPropsCalled, 'id' | 'createdAt'>) => {
     const resp = ref('');
     try {
       const httpPost = await axios.post(`${API_BASE_URL}/called`, data);
@@ -102,7 +102,7 @@ export const useApiCalledStore = defineStore('called', () => {
   };
 
   // Update
-  const update = async (id: number, data: Omit<IPropsCalled, 'id'>) => {
+  const update = async (id: number, data: Omit<IPropsCalled, 'id' | 'createdAt'>) => {
     const resp = ref('');
     try {
       const httpPost = await axios.put(`${API_BASE_URL}/called/${id}`, data);

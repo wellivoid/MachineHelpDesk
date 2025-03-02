@@ -29,4 +29,5 @@ export const es = {
   portuguese: 'Portugués',
   english: 'Inglés',
   spanish: 'Español',
+  created: 'Creado',
 };
