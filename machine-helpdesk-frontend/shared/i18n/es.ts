@@ -30,4 +30,11 @@ export const es = {
   english: 'Inglés',
   spanish: 'Español',
   created: 'Creado',
+  errorCreateCalled: 'Error al crear la llamada',
+  errorReq: 'Error de solicitud',
+  errorUnselected: 'Error desconocido',
+  updateCompleted: 'Actualización completada exitosamente',
+  errorUpdate: 'Error de actualización',
+  openCalled: 'Llamada abierta exitosamente',
+  errorOpenCalled: 'Error al abrir el ticket',
 };

@@ -30,4 +30,12 @@ export const en = {
   english: 'English',
   spanish: 'Spanish',
   created: 'Created',
+  errorCreateCalled: 'Error creating call',
+  errorReq: 'Request error',
+  errorUnselected: 'Unknown error',
+  updateCompleted: 'Update completed successfully',
+  errorUpdate: 'Update error',
+  openCalled: 'Call opened successfully',
+  errorOpenCalled: 'Erro ao abrir o chamado',
+
 };

@@ -13,6 +13,7 @@ interface IPropsCalled {
 }
 
 export const useApiCalledStore = defineStore('called', () => {
+  const { t } = useI18n();
   const { $toast } = useNuxtApp();
   const { locale } = useI18n();
   const config = useRuntimeConfig();
@@ -30,16 +31,16 @@ export const useApiCalledStore = defineStore('called', () => {
     }
     catch (error) {
       if (axios.isAxiosError(error)) {
-        const errorMessage = error.response?.data?.message || error.message || 'Erro desconhecido';
+        const errorMessage = error.response?.data?.message || error.message || t('errorUnselected');
 
-        $toast.error(`Erro ao criar o chamado`);
+        $toast.error(t('errorCreateCalled'));
 
         resp.value = `Erro: ${errorMessage}`;
       }
       else {
-        $toast.error(`Erro ao criar o chamado`);
+        $toast.error(t('errorCreateCalled'));
 
-        resp.value = 'Erro na requisição';
+        resp.value = t('errorReq');
       }
     }
     return resp.value;
@@ -58,14 +59,14 @@ export const useApiCalledStore = defineStore('called', () => {
         ...chamado,
         createdAt: format(new Date(chamado.createdAt), locale.value.startsWith('pt') || locale.value.startsWith('es') ? 'dd/MM/yyyy - HH:mm:ss' : 'MM/dd/yyyy - HH:mm:ss'),
       }));
-      $toast.success('Atualização concluída com sucesso');
+      $toast.success(t('updateCompleted'));
     }
     catch (error) {
       if (axios.isAxiosError(error)) {
-        $toast.error('Erro na atualização');
+        $toast.error(t('errorUpdate'));
       }
       else {
-        $toast.error('Erro na atualização');
+        $toast.error(t('errorUpdate'));
       }
     }
     return respGetAll.value;
@@ -88,14 +89,14 @@ export const useApiCalledStore = defineStore('called', () => {
     try {
       const httpGetById = await axios.get<IPropsCalled>(`${API_BASE_URL}/called/${id}`);
       respGetById.value = httpGetById.data;
-      $toast.success(`Chamado de ${id} aberto com sucesso`);
+      $toast.success(t('openCalled'));
     }
     catch (error) {
       if (axios.isAxiosError(error)) {
         $toast.error(`Erro ao abrir o chamado do id: ${id}`);
       }
       else {
-        $toast.error(`Erro ao abrir o chamado do id: ${id}`);
+        $toast.error(t('errorOpenCalled'));
       }
     }
     return respGetById.value;
@@ -114,14 +115,14 @@ export const useApiCalledStore = defineStore('called', () => {
       if (axios.isAxiosError(error)) {
         const errorMessage = error.response?.data?.message || error.message || 'Erro desconhecido';
 
-        $toast.error(`Erro ao atualizar o chamado`);
+        $toast.error(t('errorUpdate'));
 
         resp.value = `Erro: ${errorMessage}`;
       }
       else {
-        $toast.error(`Erro ao atualizar o chamado`);
+        $toast.error(t('errorUpdate'));
 
-        resp.value = 'Erro na requisição';
+        resp.value = t('errorReq');
       }
     }
   };

@@ -15,7 +15,7 @@
       <Button
         :label="t('signOut')"
         icon="pi pi-sign-out"
-        class="flex-auto h-8  hover:!bg-neutral-100 hover:!text-green-600 w-full"
+        class="flex-auto h-8 hover:!bg-neutral-100 hover:!text-green-600 w-full"
       />
     </div>
   </div>
@@ -47,9 +47,8 @@ const items = computed(() => [
 ]);
 </script>
 
-<style lang="css">
+<!-- <style lang="" scoped>
 .p-menu {
     min-width: 6rem;
-    /* max-width: 6rem; */
 }
-</style>
+</style> -->

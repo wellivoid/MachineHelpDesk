@@ -30,4 +30,11 @@ export const pt = {
   english: 'Inglês',
   spanish: 'Espanhol',
   created: 'Criado',
+  errorCreateCalled: 'Erro ao criar o chamado',
+  errorReq: 'Erro na requisição',
+  errorUnselected: 'Erro desconhecido',
+  updateCompleted: 'Atualização concluída com sucesso',
+  errorUpdate: 'Erro na atualização',
+  openCalled: 'Chamado de aberto com sucesso',
+  errorOpenCalled: 'Erro ao abrir o chamado',
 };
