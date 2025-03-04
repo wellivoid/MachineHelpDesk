@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import validate from '../../shared/middlewares/Validation';
 import { StatusCodes } from 'http-status-codes';
 import { UsersProvider } from '../../database/providers/users';
-import { PasswordCrypto } from '../../shared/services';
+import { JWTService, PasswordCrypto } from '../../shared/services';
 
 
 const signInSchema = {
@@ -35,7 +35,7 @@ export class SignInController {
       });   
       return;
     }
-    
+
     const matchPassword = await PasswordCrypto.verifyPassword(password, result.password);
     if (!matchPassword) {
       res.status(StatusCodes.UNAUTHORIZED).json({
@@ -44,7 +44,18 @@ export class SignInController {
         }
       }); 
     } else {
-      res.status(StatusCodes.OK).json({ access: 'test.teste.teste' });
+      const accessToken = JWTService.sign({ uid:result.id });
+
+      if (accessToken === 'JTW_SECRET_NOT_FOUND' || accessToken === 'INVALID_TOKEN') {
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+          errors:{
+            default: 'Erro ao gerar o token de acesso'//result.message
+          }
+        });   
+        return;
+      }
+
+      res.status(StatusCodes.OK).json({ accessToken: accessToken });
       return;
     
     }
