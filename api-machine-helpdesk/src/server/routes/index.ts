@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'; 
 // import { StatusCodes } from 'http-status-codes';
-import { CalledControllers } from '../controllers';
+import { CalledControllers, UsersControllers } from '../controllers';
 
 const router =  Router();
 
@@ -14,5 +14,9 @@ router.get('/called', CalledControllers.getAllValidation, CalledControllers.getA
 router.get('/called/:id', CalledControllers.getByIdValidation, CalledControllers.getById); 
 router.put('/called/:id', CalledControllers.updateByIdValidation, CalledControllers.updateById); 
 router.delete('/called/:id', CalledControllers.deleteByIdValidation, CalledControllers.deleteById); 
+
+//Users
+router.post('/login',UsersControllers.signInValidation, UsersControllers.signIn);
+router.post('/register',UsersControllers.signUpValidation, UsersControllers.signUp);
 
 export { router };

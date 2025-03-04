@@ -5,7 +5,7 @@ import { IUser } from '../../models';
 
 
 
-export const getById = async (email: string): Promise<IUser | Error> => {
+export const getByEmail = async (email: string): Promise<IUser | Error> => {
   try {
     const result = await Knex(EtableNames.user)
       .select('*')

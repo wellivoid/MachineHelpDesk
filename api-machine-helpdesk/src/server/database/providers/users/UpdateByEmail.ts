@@ -5,11 +5,11 @@ import { IUser } from '../../models';
 
 
 
-export const updateById = async (id: number, user: Omit<IUser, 'id' | 'createdAt'>): Promise<void | Error> => {
+export const updateByEmail = async (email: string, user: Omit<IUser, 'id' | 'createdAt'>): Promise<void | Error> => {
   try {
     const result = await Knex(EtableNames.user)
       .update(user)
-      .where('id', '=', id);
+      .where('email', '=', email);
         
     if (result > 0) return;
 

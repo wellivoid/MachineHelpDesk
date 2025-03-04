@@ -1,14 +1,12 @@
 import * as create from './Create';
 import * as getAll from './GetAll';
-import * as getById from './GetById';
 import * as getByEmail from './GetByEmail';
-import * as updateById from './UpdateById';
+import * as updateById from './UpdateByEmail';
 
 
 export const UsersProvider = {
   ...create,
   ...getAll,
-  ...getById,
   ...getByEmail,
   ...updateById,
 };
