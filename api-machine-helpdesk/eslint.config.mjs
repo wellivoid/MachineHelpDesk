@@ -18,9 +18,7 @@ export default [
       'space-before-function-paren': ['error', 'always'], // Espaço antes dos parênteses de funções
       'keyword-spacing': ['error', { 'before': true, 'after': true }], // Espaço antes e depois de palavras-chave
       'object-curly-spacing': ['error', 'always'], // Espaço dentro de chaves { a: 1 }
-      //"eqeqeq": ["error", "always"], // Proíbe `==`, exige `===`
       '@typescript-eslint/no-empty-object-type':'off',
-
     },
     //
   },

@@ -10,9 +10,17 @@ export async function up (knex: Knex) {
       table.string('title').checkLength('<=', 200).index().notNullable();
       table.text('description').checkLength('<=', 5000).notNullable();
       table.string('priority', 12).checkLength('<=', 12).index().notNullable();
-      table.integer('userId').index().notNullable();
       table.string('status', 12).checkLength('<=', 12).index().notNullable();
       table.timestamp('createdAt').defaultTo(knex.fn.now()).notNullable();
+     
+      table.bigInteger('userId')
+        .unsigned()
+        .index()
+        .notNullable()
+        .references('id')
+        .inTable(EtableNames.user)
+        .onUpdate('CASCADE')
+        .onDelete('RESTRICT');
 
       table.comment('Tabela para armazenar os chamados');
      

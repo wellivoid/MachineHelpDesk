@@ -2,5 +2,6 @@
 
 
 export enum EtableNames {
-    called = 'called'
+    called = 'called',
+    user = 'user'
 }
