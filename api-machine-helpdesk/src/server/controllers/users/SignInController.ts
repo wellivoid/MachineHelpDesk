@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import validate from '../../shared/middlewares/Validation';
 import { StatusCodes } from 'http-status-codes';
 import { UsersProvider } from '../../database/providers/users';
+import { PasswordCrypto } from '../../shared/services';
 
 
 const signInSchema = {
@@ -34,14 +35,14 @@ export class SignInController {
       });   
       return;
     }
-
-    if (password !== result.password) {
+    
+    const matchPassword = await PasswordCrypto.verifyPassword(password, result.password);
+    if (!matchPassword) {
       res.status(StatusCodes.UNAUTHORIZED).json({
         errors:{
           default: 'Email ou password inválidos'//result.message
         }
       }); 
-      return;
     } else {
       res.status(StatusCodes.OK).json({ access: 'test.teste.teste' });
       return;

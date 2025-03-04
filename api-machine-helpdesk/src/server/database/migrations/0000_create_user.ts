@@ -7,10 +7,10 @@ export async function up (knex: Knex) {
     .schema
     .createTable(EtableNames.user, table => {
       table.bigIncrements('id').primary().index();
-      table.string('name').unique().index().notNullable().checkLength('>', 3);
-      table.string('email').unique().index().notNullable().checkLength('>', 5);
+      table.string('name').unique().index().notNullable().checkLength('>=', 3);
+      table.string('email').unique().index().notNullable().checkLength('>=', 5);
       table.string('password').notNullable().checkLength('>', 3);
-      table.boolean('enable').defaultTo(true).notNullable().checkLength('>', 3);
+      table.boolean('enable').defaultTo(true).notNullable();
       table.timestamp('createdAt').defaultTo(knex.fn.now()).notNullable();
 
       table.comment('Tabela para armazenar os usuários do sistema');

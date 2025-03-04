@@ -30,7 +30,7 @@ export class SignUpController {
           default: result.message
         }
       });   
-        
+      return;
     }
  
     res.status(StatusCodes.CREATED).json(result);
