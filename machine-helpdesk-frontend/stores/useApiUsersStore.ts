@@ -27,7 +27,6 @@ export const useApiUsersStore = defineStore('users', () => {
     const resp = ref('');
     try {
       const httpPost = await axios.post(`${API_BASE_URL}/register`, data);
-      console.log(API_BASE_URL);
       resp.value = JSON.stringify(httpPost.data);
       const id = Number(resp.value);
       if (!isNaN(id) && Number.isInteger(id)) {
@@ -67,7 +66,7 @@ export const useApiUsersStore = defineStore('users', () => {
           // Atualiza o cookie com tempo de expiração correto
           useCookie('accessToken', { maxAge: expiresIn }).value = response.data.accessToken;
 
-          $toast.success(t('loginSuccess'));
+          // $toast.success(t('loginSuccess'));
           navigateTo('/');
         }
         else {
@@ -82,9 +81,15 @@ export const useApiUsersStore = defineStore('users', () => {
 
   // Logout do usuário
   const logout = () => {
-    accessToken.value = null;
-    useCookie('accessToken', { maxAge: 0 }).value = null; // Remove o cookie
-    $toast.success(t('logoutSuccess'));
+    const accessToken = useCookie('accessToken');
+
+    if (accessToken.value) {
+      // Remove o cookie corretamente
+      accessToken.value = undefined; // Definir como `undefined` evita que o Nuxt tente sobrescrevê-lo
+      document.cookie = 'accessToken=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;'; // Força remoção
+    }
+
+    // Redireciona para login
     navigateTo('/login');
   };
 
