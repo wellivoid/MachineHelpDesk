@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <NuxtLink to="/">Home</NuxtLink>
+  <div class="h-screen flex flex-col justify-center items-center bg-gradient-to-b from-gray-500 to-neutral-100">
     <slot />
-    Rodapé Padrão
   </div>
 </template>
 

@@ -6,7 +6,17 @@ import 'dotenv/config';
 const server = express();
 
 server.use(express.json());
-server.use(cors());
+
+server.use(cors({
+  origin: process.env.ENABLED_CORS?.split(';') || []
+}));
+
+
+
+
+console.log(process.env.ENABLED_CORS);
+console.log(typeof process.env.ENABLED_CORS);
+
 server.use(router);
 
 export default server;

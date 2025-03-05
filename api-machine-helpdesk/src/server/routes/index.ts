@@ -10,11 +10,11 @@ router.get('/', (req: Request, res: Response) => {
 }); 
 
 //Called
-router.post('/called', CalledControllers.createValidation, CalledControllers.create); 
-router.get('/called', CalledControllers.getAllValidation, CalledControllers.getAll); 
+router.post('/called', ensureAuthenticated, CalledControllers.createValidation, CalledControllers.create); 
+router.get('/called', ensureAuthenticated, CalledControllers.getAllValidation, CalledControllers.getAll); 
 router.get('/called/:id', ensureAuthenticated ,CalledControllers.getByIdValidation, CalledControllers.getById); 
-router.put('/called/:id', CalledControllers.updateByIdValidation, CalledControllers.updateById); 
-router.delete('/called/:id', CalledControllers.deleteByIdValidation, CalledControllers.deleteById); 
+router.put('/called/:id', ensureAuthenticated, CalledControllers.updateByIdValidation, CalledControllers.updateById); 
+router.delete('/called/:id', ensureAuthenticated, CalledControllers.deleteByIdValidation, CalledControllers.deleteById); 
 
 //Users
 router.post('/login',UsersControllers.signInValidation, UsersControllers.signIn);

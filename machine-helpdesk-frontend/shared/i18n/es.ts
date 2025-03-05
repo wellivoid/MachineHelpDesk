@@ -37,4 +37,9 @@ export const es = {
   errorUpdate: 'Error de actualización',
   openCalled: 'Llamada abierta exitosamente',
   errorOpenCalled: 'Error al abrir el ticket',
+  email: 'E-mail',
+  password: 'Contraseña',
+  register: 'Registro',
+  login: 'Acceso',
+  name: 'Nombre',
 };

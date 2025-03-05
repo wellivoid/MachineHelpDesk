@@ -37,4 +37,9 @@ export const pt = {
   errorUpdate: 'Erro na atualização',
   openCalled: 'Chamado de aberto com sucesso',
   errorOpenCalled: 'Erro ao abrir o chamado',
+  email: 'E-mail',
+  password: 'Senha',
+  register: 'Cadastrar',
+  login: 'Login',
+  name: 'Nome',
 };

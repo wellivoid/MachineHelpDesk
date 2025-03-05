@@ -43,11 +43,7 @@
 </template>
 
 <script setup lang="ts">
-// const { $toast } = useNuxtApp();
-// import type { toast } from 'vue3-toastify';
-
 const { t } = useI18n();
-// const { $toast } = useNuxtApp();
 
 interface IPropsDataCreate {
   title: string;
@@ -78,9 +74,6 @@ watch(selectedPriority, (newPriority: { code: string }) => {
     data.value.priority = newPriority.code;
   }
 });
-
-// const nuxtApp = useNuxtApp();
-// const toastMy = nuxtApp.$toast as typeof toast;
 
 const calledStore = useApiCalledStore();
 const createdRespId = ref('');

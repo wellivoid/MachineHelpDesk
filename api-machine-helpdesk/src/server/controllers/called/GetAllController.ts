@@ -30,6 +30,10 @@ export class GetAllController {
     const result = await CalledProvider.getAll(page || 1, limit || 10, filter || '', id);
     const count = await CalledProvider.count(filter || '');
 
+    console.log('idUsers: ', req.headers.idUser);
+
+
+
     if (result instanceof Error ){
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         errors: {

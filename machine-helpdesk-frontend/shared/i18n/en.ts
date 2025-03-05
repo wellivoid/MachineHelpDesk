@@ -37,5 +37,9 @@ export const en = {
   errorUpdate: 'Update error',
   openCalled: 'Call opened successfully',
   errorOpenCalled: 'Erro ao abrir o chamado',
-
+  email: 'E-mail',
+  password: 'Password',
+  register: 'Register',
+  login: 'Login',
+  name: 'Name',
 };
