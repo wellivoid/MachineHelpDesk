@@ -44,4 +44,5 @@ export const pt = {
   name: 'Nome',
   repeaterPassword: 'Repetir senha',
   cancel: 'Cancelar',
+  errorCreateUser: 'Erro ao criar o usuário',
 };

@@ -7,7 +7,7 @@ interface IJWTDate {
 const sign = (data: IJWTDate) => {
   if (!process.env.JWT_SECRET) return 'JTW_SECRET_NOT_FOUND';
 
-  return jwt.sign(data, process.env.JWT_SECRET, { expiresIn: '24h' });
+  return jwt.sign(data, process.env.JWT_SECRET, { expiresIn: '2m' });
 };
 
 const verify = (token: string): IJWTDate | 'JTW_SECRET_NOT_FOUND' | 'INVALID_TOKEN' => {

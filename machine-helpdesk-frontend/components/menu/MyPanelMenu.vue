@@ -16,6 +16,7 @@
         :label="t('signOut')"
         icon="pi pi-sign-out"
         class="flex-auto h-8 hover:!bg-neutral-100 hover:!text-green-600 w-full"
+        @click="logout"
       />
     </div>
   </div>
@@ -23,6 +24,7 @@
 
 <script setup lang="ts">
 const { t } = useI18n();
+const { logout } = useApiUsersStore();
 const items = computed(() => [
   {
     label: t('called'),

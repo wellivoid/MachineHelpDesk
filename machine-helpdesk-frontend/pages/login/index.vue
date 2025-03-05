@@ -23,6 +23,7 @@
             >{{ $t('email') }}</label>
             <InputText
               id="userEmail"
+              v-model="data.email"
               class="!bg-white/50 !border-0 !p-4 !text-primary-50 w-80"
             />
           </div>
@@ -33,6 +34,7 @@
             >{{ $t('password') }}</label>
             <InputText
               id="password"
+              v-model="data.password"
               class="!bg-white/50 !border-0 !p-4 !text-primary-50 w-80"
               type="password"
             />
@@ -48,6 +50,7 @@
               :label="t('login')"
               text
               class="!p-4 w-full !text-white !border !border-white/80 hover:!bg-white/20"
+              @click="login"
             />
           </div>
         </div>
@@ -61,4 +64,21 @@ const { t } = useI18n();
 definePageMeta({
   layout: 'login',
 });
+
+interface ILogin {
+  email: string;
+  password: string;
+
+}
+
+const data: ILogin = {
+  email: '',
+  password: '',
+};
+
+const userStore = useApiUsersStore();
+
+const login = async () => {
+  await userStore.signIn(data.email, data.password);
+};
 </script>

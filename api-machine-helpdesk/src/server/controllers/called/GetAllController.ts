@@ -30,7 +30,7 @@ export class GetAllController {
     const result = await CalledProvider.getAll(page || 1, limit || 10, filter || '', id);
     const count = await CalledProvider.count(filter || '');
 
-    console.log('idUsers: ', req.headers.idUser);
+    // console.log('idUsers: ', req.headers.idUser);
 
 
 

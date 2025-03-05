@@ -10,7 +10,7 @@ export default [
   ...tseslint.configs.recommended,
   {
     rules: {
-      //"no-console": "warn", // Permite console.log, mas com aviso
+      // 'no-console': 'warn', // Permite console.log, mas com aviso
       'semi': ['error', 'always'], // Exige ponto e vírgula no final
       'quotes': ['error', 'single'], // Força aspas duplas
       'indent': ['error', 2,{ 'SwitchCase':1 }], // Força indentação de 2 espaços

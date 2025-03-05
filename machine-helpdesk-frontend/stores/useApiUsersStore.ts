@@ -1,0 +1,92 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { defineStore } from 'pinia';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
+
+interface IPropsUser {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  enable: boolean;
+  createdAt: string;
+}
+
+export const useApiUsersStore = defineStore('users', () => {
+  const { t } = useI18n();
+  const { $toast } = useNuxtApp();
+  // const { locale } = useI18n();
+  const config = useRuntimeConfig();
+  const API_BASE_URL = config.public.API_BASE_URL; // Obtém a URL da API do .env
+
+  // Define o cookie do token sem um tempo fixo
+  const accessToken = useCookie<string | null>('accessToken');
+
+  // Criar ususarios
+  const signUp = async (data: Omit<IPropsUser, 'id' | 'createdAt' | 'enable'>) => {
+    const resp = ref('');
+    try {
+      const httpPost = await axios.post(`${API_BASE_URL}/register`, data);
+      console.log(API_BASE_URL);
+      resp.value = JSON.stringify(httpPost.data);
+      const id = Number(resp.value);
+      if (!isNaN(id) && Number.isInteger(id)) {
+        navigateTo('/login');
+      }
+    }
+    catch (error) {
+      if (axios.isAxiosError(error)) {
+        const errorMessage = error.response?.data?.message || error.message || t('errorUnselected');
+
+        $toast.error(t('errorCreateUser'));
+
+        resp.value = `Erro: ${errorMessage}`;
+      }
+      else {
+        $toast.error(t('error Create User'));
+
+        resp.value = t('errorReq');
+      }
+    }
+    return resp.value;
+  };
+
+  // Login do usuário
+  const signIn = async (email: string, password: string) => {
+    try {
+      const response = await axios.post(`${API_BASE_URL}/login`, { email, password });
+
+      if (response.data.accessToken) {
+        const decodedToken: { uid: number; exp: number } = jwtDecode(response.data.accessToken);
+        const now = Math.floor(Date.now() / 1000);
+        const expiresIn = decodedToken.exp - now;
+
+        if (expiresIn > 0) {
+          accessToken.value = response.data.accessToken;
+
+          // Atualiza o cookie com tempo de expiração correto
+          useCookie('accessToken', { maxAge: expiresIn }).value = response.data.accessToken;
+
+          $toast.success(t('loginSuccess'));
+          navigateTo('/');
+        }
+        else {
+          $toast.error(t('expiredToken'));
+        }
+      }
+    }
+    catch (error) {
+      $toast.error(t('errorLogin'));
+    }
+  };
+
+  // Logout do usuário
+  const logout = () => {
+    accessToken.value = null;
+    useCookie('accessToken', { maxAge: 0 }).value = null; // Remove o cookie
+    $toast.success(t('logoutSuccess'));
+    navigateTo('/login');
+  };
+
+  return { signIn, signUp, logout, accessToken };
+});
