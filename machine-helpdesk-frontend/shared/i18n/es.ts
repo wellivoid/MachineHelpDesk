@@ -45,4 +45,6 @@ export const es = {
   repeaterPassword: 'Repita la contraseña',
   cancel: 'Cancelar',
   errorCreateUser: 'Error al crear usuario',
+  errorLogin: 'Error de inicio de sesión',
+  expiredToken: 'Token caducado',
 };

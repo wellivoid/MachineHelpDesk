@@ -45,4 +45,6 @@ export const en = {
   repeaterPassword: 'Repeater Password',
   cancel: 'Cancel',
   errorCreateUser: 'Error creating user',
+  errorLogin: 'Erro login',
+  expiredToken: 'Expired token',
 };
