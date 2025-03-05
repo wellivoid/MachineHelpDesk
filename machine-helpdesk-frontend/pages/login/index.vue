@@ -13,7 +13,7 @@
     >
       <template #container>
         <div
-          class="flex flex-col px-8 py-8 gap-6 rounded-2xl border-2 border-white bg-gradient-to-b from-blue-950 to-sky-500 text-white"
+          class="flex flex-col px-4 py-8 gap-6 rounded-2xl border-2 border-white bg-gradient-to-b from-blue-950 to-sky-500 text-white"
         >
           <IconsLogoIcon class=" block mx-auto" />
           <div class="inline-flex flex-col gap-2 ">
@@ -41,13 +41,13 @@
             <Button
               :label="t('register')"
               text
-              class="!p-4 w-full !text-white !border !border-white/30 hover:!bg-white/10"
-              @click="visible = false"
+              class="!p-4 w-full !text-white !border !border-white/80 hover:!bg-white/20"
+              @click="navigateTo('/register')"
             />
             <Button
               :label="t('login')"
               text
-              class="!p-4 w-full !text-white !border !border-white/30 hover:!bg-white/10"
+              class="!p-4 w-full !text-white !border !border-white/80 hover:!bg-white/20"
             />
           </div>
         </div>
@@ -61,6 +61,4 @@ const { t } = useI18n();
 definePageMeta({
   layout: 'login',
 });
-
-const visible = ref(false);
 </script>

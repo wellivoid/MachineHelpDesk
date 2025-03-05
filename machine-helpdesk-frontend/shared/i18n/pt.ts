@@ -42,4 +42,6 @@ export const pt = {
   register: 'Cadastrar',
   login: 'Login',
   name: 'Nome',
+  repeaterPassword: 'Repetir senha',
+  cancel: 'Cancelar',
 };

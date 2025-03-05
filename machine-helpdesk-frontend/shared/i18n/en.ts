@@ -42,4 +42,6 @@ export const en = {
   register: 'Register',
   login: 'Login',
   name: 'Name',
+  repeaterPassword: 'Repeater Password',
+  cancel: 'Cancel',
 };

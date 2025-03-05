@@ -42,4 +42,6 @@ export const es = {
   register: 'Registro',
   login: 'Acceso',
   name: 'Nombre',
+  repeaterPassword: 'Repita la contraseña',
+  cancel: 'Cancelar',
 };
