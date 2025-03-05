@@ -7,10 +7,10 @@ const server = express();
 
 server.use(express.json());
 
-// server.use(cors({
-//   origin: process.env.ENABLED_CORS?.split(';') || []
-// }));
-server.use(cors());
+server.use(cors({
+  origin: process.env.ENABLED_CORS?.split(';')
+}));
+// server.use(cors());
 
 
 
