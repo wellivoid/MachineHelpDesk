@@ -43,7 +43,9 @@
 </template>
 
 <script setup lang="ts">
+const { $toast } = useNuxtApp();
 const { t } = useI18n();
+const { uid } = useAuth();
 
 interface IPropsDataCreate {
   title: string;
@@ -58,7 +60,7 @@ const data = ref<IPropsDataCreate>({
   title: '',
   description: '',
   priority: '',
-  userId: 1,
+  userId: 0,
   status: 'open',
 });
 
@@ -77,15 +79,14 @@ watch(selectedPriority, (newPriority: { code: string }) => {
 
 const calledStore = useApiCalledStore();
 const createdRespId = ref('');
+
 const createCalled = async () => {
+  if (!uid.value) {
+    $toast.error(t('errorCreateCalled'));
+    return;
+  }
+
+  data.value.userId = uid.value;
   createdRespId.value = await calledStore.create(data.value);
-  // const id = Number(createdRespId.value); // Converte para número
-
-  // if (!isNaN(id) && Number.isInteger(id)) {
-  //   console.log(createdRespId.value);
-
-  //   await navigateTo('/');
-  // }
-  // // console.log('Tipo:', typeof createdRespId.value, 'Valor:', createdRespId.value);
 };
 </script>

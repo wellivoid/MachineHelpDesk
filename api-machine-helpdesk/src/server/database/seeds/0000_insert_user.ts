@@ -1,6 +1,9 @@
 import { Knex } from 'knex';
 import { EtableNames } from '../ETableNames';
 import { IUser } from '../models';
+import { PasswordCrypto } from '../../shared/services';
+
+
 
 
 
@@ -9,7 +12,13 @@ export const seed = async (knex: Knex) => {
   const [{ count }] = await knex(EtableNames.user).count<[{count: number}]>('* as count');
   if  (!Number.isInteger(count) || Number(count) > 0) return;
 
-  const userToInsert = userTestSeed;
+  // Criptografando as senhas antes da inserção
+  const userToInsert = await Promise.all(
+    userTestSeed.map(async (user) => ({
+      ...user,
+      password: await PasswordCrypto.hashPassword(user.password),
+    }))
+  );
 
 
   await knex(EtableNames.user).insert(userToInsert);
@@ -19,6 +28,13 @@ const userTestSeed: Omit<IUser,'id' | 'createdAt' | 'enable'>[] = [
   {
     name: 'master',
     email:'master@master.com',
-    password: 'low',
+    password: '1234',
+    level: 'master'
+  },
+  {
+    name: 'Wellington S.',
+    email:'welli@gmail.com',
+    password: '123456',
+    level: 'master'
   }
 ];

@@ -37,6 +37,7 @@ export class SignInController {
     }
 
     const matchPassword = await PasswordCrypto.verifyPassword(password, result.password);
+    
     if (!matchPassword) {
       res.status(StatusCodes.UNAUTHORIZED).json({
         errors:{
@@ -44,7 +45,10 @@ export class SignInController {
         }
       }); 
     } else {
-      const accessToken = JWTService.sign({ uid:result.id });
+      const accessToken = JWTService.sign({ 
+        uid:result.id, 
+        ulevel: result.level 
+      });
 
       if (accessToken === 'JTW_SECRET_NOT_FOUND' || accessToken === 'INVALID_TOKEN') {
         res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

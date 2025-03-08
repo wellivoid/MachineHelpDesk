@@ -6,7 +6,7 @@ import { IUser } from '../../models';
 
 
 
-export const create = async (user: Omit<IUser, 'id' | 'createdAt' | 'enable'>): Promise<number | Error> => {
+export const create = async (user: Omit<IUser, 'id' | 'createdAt' | 'enable' | 'level'>): Promise<number | Error> => {
   try {
     const hashedPassword = await PasswordCrypto.hashPassword(user.password);
 

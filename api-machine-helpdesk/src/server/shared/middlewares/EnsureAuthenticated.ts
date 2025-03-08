@@ -4,10 +4,6 @@ import { JWTService } from '../services';
 
 
 
-
-
-
-
 export const ensureAuthenticated: RequestHandler = async (req, res, next) => {
   const { authorization } = req.headers;
 
@@ -45,6 +41,7 @@ export const ensureAuthenticated: RequestHandler = async (req, res, next) => {
   }
 
   req.headers.idUser = jwtData.uid.toString();
+  req.headers.levelUser = jwtData.ulevel;
   
   return next();
 };

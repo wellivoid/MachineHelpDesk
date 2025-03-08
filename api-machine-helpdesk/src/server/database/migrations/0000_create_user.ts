@@ -10,6 +10,7 @@ export async function up (knex: Knex) {
       table.string('name').unique().index().notNullable().checkLength('>=', 3);
       table.string('email').unique().index().notNullable().checkLength('>=', 5);
       table.string('password').notNullable().checkLength('>', 3);
+      table.string('level').notNullable().checkLength('>=', 3).defaultTo('common');
       table.boolean('enable').defaultTo(true).notNullable();
       table.timestamp('createdAt').defaultTo(knex.fn.now()).notNullable();
 
