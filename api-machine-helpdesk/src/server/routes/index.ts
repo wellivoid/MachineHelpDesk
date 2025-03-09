@@ -20,5 +20,7 @@ router.delete('/called/:id', ensureAuthenticated, ensureAuthorization(['all']), 
 //Users
 router.post('/login',UsersControllers.signInValidation, UsersControllers.signIn);
 router.post('/register',UsersControllers.signUpValidation, UsersControllers.signUp);
+router.get('/users', ensureAuthenticated, ensureAuthorization(['all']), UsersControllers.getAllInValidation, UsersControllers.getAll); 
+
 
 export { router };

@@ -6,7 +6,15 @@ export interface IUser {
   email: string,
   password: string,
   level: string
-  enable: string,
+  enable: boolean,
   createdAt: Date,    
+}
+
+
+export interface IUserPublic {
+  id: number;
+  name: string;
+  enable: boolean;
+  createdAt: Date;
 }
 
