@@ -4,8 +4,16 @@ import { Knex } from '../../knex';
 import { ICalled } from '../../models';
 
 
+type OmittedCalledFields = 
+'id' 
+| 'createdAt' 
+| 'inProgressAt' 
+| 'resolvedAt' 
+| 'closedAt' 
+| 'idUserResponsable';
 
-export const create = async (called: Omit<ICalled, 'id' | 'createdAt'>): Promise<number | Error> => {
+
+export const create = async (called: Omit<ICalled, OmittedCalledFields>): Promise<number | Error> => {
   try {
     const [result] = await Knex(EtableNames.called).insert(called);
     //console.log(result);

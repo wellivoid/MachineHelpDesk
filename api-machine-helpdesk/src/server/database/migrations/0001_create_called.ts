@@ -11,12 +11,23 @@ export async function up (knex: Knex) {
       table.text('description').checkLength('<=', 5000).notNullable();
       table.string('priority', 12).checkLength('<=', 12).index().notNullable();
       table.string('status', 12).checkLength('<=', 12).index().notNullable();
-      table.timestamp('createdAt').defaultTo(knex.fn.now()).notNullable();
+      table.timestamp('createdAt').defaultTo(knex.fn.now()).notNullable().index();
+      table.timestamp('inProgressAt').index();
+      table.timestamp('resolvedAt').index();
+      table.timestamp('closedAt').index();
      
       table.bigInteger('userId')
         .unsigned()
         .index()
         .notNullable()
+        .references('id')
+        .inTable(EtableNames.user)
+        .onUpdate('CASCADE')
+        .onDelete('RESTRICT');
+
+      table.bigInteger('idUserResponsable')
+        .unsigned()
+        .index()
         .references('id')
         .inTable(EtableNames.user)
         .onUpdate('CASCADE')

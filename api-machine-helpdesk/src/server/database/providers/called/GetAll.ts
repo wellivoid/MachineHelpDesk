@@ -5,20 +5,21 @@ import { ICalled } from '../../models';
 
 
 
-export const getAll = async (page: number,limit: number, filter: string, id = 0): Promise<ICalled[] | Error> => {
+export const getAll = async (page: number,limit: number, filter: string, status:string, userId = 0): Promise<ICalled[] | Error> => {
   try {
     const result = await Knex(EtableNames.called)
       .select('*')
-      .where('id', '=', Number(id))
+      .where('userId', '=', Number(userId))
+      .orWhere('status', '=', status)
       .orWhere('title', 'like' ,`%${filter}%`)
       .orWhere('description', 'like' ,`%${filter}%`)
       .offset((page - 1) * limit)
       .limit(limit);
         
-    if (id > 0 && result.every(item => item.id !== id)){
+    if (userId > 0 && result.every(item => item.id !== userId)){
       const resultById: ICalled | undefined = await Knex(EtableNames.called)
         .select('*')
-        .where('id', '=', id)
+        .where('userId', '=', userId)
         .first();
       if (resultById) return [...result, resultById];
     }

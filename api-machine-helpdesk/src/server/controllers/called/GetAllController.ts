@@ -10,11 +10,12 @@ const getAlldSchema = {
     page: yup.number().notRequired().moreThan(0),
     limit: yup.number().notRequired().moreThan(0),
     filter: yup.string().notRequired(),
+    status: yup.string().notRequired(),
   })
 };
 
 interface IQueryProps extends yup.InferType<typeof getAlldSchema.query> {
-  id?: number; // Tornar opcional para evitar erro de tipagem
+  userId?: number; // Tornar opcional para evitar erro de tipagem
 }
 
 
@@ -24,10 +25,10 @@ export class GetAllController {
   static getAllValidation = validate(getAlldSchema);
 
   static async getAll (req: Request<{},{},{},IQueryProps>, res: Response)  {
-    const { page, limit, filter, id } = req.query;
+    const { page, limit, filter, status, userId } = req.query;
     
     
-    const result = await CalledProvider.getAll(page || 1, limit || 10, filter || '', id);
+    const result = await CalledProvider.getAll(page || 1, limit || 10, filter || '', status || '', userId);
     const count = await CalledProvider.count(filter || '');
 
     //console.log('idUsers: ', req.headers.idUser);
