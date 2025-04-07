@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express'; 
 // import { StatusCodes } from 'http-status-codes';
-import { CalledControllers, UsersControllers } from '../controllers';
+import { CalledControllers, UserControllers, UsersControllers } from '../controllers';
 import { ensureAuthenticated } from '../shared/middlewares/EnsureAuthenticated';
 import { ensureAuthorization } from '../shared/middlewares/EnsureAuthorization';
 
@@ -21,6 +21,6 @@ router.delete('/called/:id', ensureAuthenticated, ensureAuthorization(['all']), 
 router.post('/login',UsersControllers.signInValidation, UsersControllers.signIn);
 router.post('/register',UsersControllers.signUpValidation, UsersControllers.signUp);
 router.get('/users', ensureAuthenticated, ensureAuthorization(['all']), UsersControllers.getAllInValidation, UsersControllers.getAll); 
-
+router.get('/users/:id', UserControllers.getByIdValidation, UserControllers.GetById);
 
 export { router };

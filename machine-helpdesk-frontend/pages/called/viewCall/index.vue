@@ -2,18 +2,18 @@
   <div class="p-1 flex flex-col justify-between h-full">
     <div>
       <div class="flex flex-col">
-        <label for="createTitle">{{ $t('title') }}</label>
+        <label for="vw-title">{{ $t('title') }}</label>
         <InputText
-          id="createTitle"
+          id="vw-title"
           v-model="data.title"
           type="text"
           class=""
         />
       </div>
       <div class="flex flex-col">
-        <label for="createDescription">{{ $t('description') }}</label>
+        <label for="vw-description">{{ $t('description') }}</label>
         <Textarea
-          id="createDescription"
+          id="vw-description"
           v-model="data.description"
           rows="10"
           cols="30"
@@ -22,9 +22,9 @@
       </div>
       <div class="flex flex-wrap items-center justify-between gap-2 ">
         <div class="flex flex-col">
-          <label for="createPriority">{{ $t('priority') }}</label>
+          <label for="vw-priority">{{ $t('priority') }}</label>
           <Select
-            id="createPriority"
+            id="vw-priority"
             v-model="selectedPriority"
             :options="listPriority"
             option-label="name"
@@ -33,15 +33,25 @@
           />
         </div>
         <div class="flex flex-col">
-          <label for="createPriority">{{ $t('status') }}</label>
+          <label for="vw-status">{{ $t('status') }}</label>
           <Select
-            id="createPriority"
+            id="vw-status"
             v-model="selectedStatus"
             :options="listStatus"
             option-label="name"
             class="w-full md:w-56"
           />
         </div>
+        <!-- <div class="flex flex-col">
+          <label for="vw-responsavel">{{ $t('responsavel') }}</label>
+          <Select
+            id="vw-responsavel"
+            v-model="selectedUser"
+            :options="listUsers"
+            option-label="name"
+            class="w-full md:w-56"
+          />
+        </div> -->
       </div>
     </div>
     <div>
@@ -58,6 +68,7 @@
 const { t } = useI18n();
 const route = useRoute();
 const id = Number(route.query.id);
+// const userStore = useApiUsersStore();
 
 interface IPropsData {
   title: string;
@@ -65,8 +76,15 @@ interface IPropsData {
   priority: string;
   userId: number;
   status: string;
-
+  // idResposavel: number;
 };
+
+// interface IPropsUsers {
+//   createdAt: string;
+//   name: string;
+//   id: number;
+//   enable: boolean;
+// }
 
 const data = ref<IPropsData>({
   title: '',
@@ -74,10 +92,8 @@ const data = ref<IPropsData>({
   priority: '',
   userId: 1,
   status: 'open',
+  // idResposavel: 0,
 });
-
-// const selectedPriority = ref();
-// const selectedStatus = ref();
 
 const listPriority = computed(() => [
   { name: t('low'), code: 'low' },
@@ -91,6 +107,21 @@ const listStatus = computed(() => [
   { name: t('resolved'), code: 'resolved' },
   { name: t('closed'), code: 'closed' },
 ]);
+
+// const listUsersLoad = ref<IPropsUsers[]>();
+// const listUsers = computed(() => [
+//   { name: t('low'), code: 'low' },
+//   { name: t('medium'), code: 'medium' },
+//   { name: t('high'), code: 'high' },
+// ]);
+
+// Computed para refletir e modificar `data.status`
+// const selectedUser = computed({
+// get: () => listUsers.value.find(p => p.code === data.value.idResposavel) || null,
+// set: (newPriority: { code: string } | null) => {
+// if (newPriority) data.value.priority = newPriority.code;
+// },
+// });
 
 // Computed para refletir e modificar `data.priority`
 const selectedPriority = computed({
@@ -108,13 +139,13 @@ const selectedStatus = computed({
   },
 });
 
-const store = useApiCalledStore();
+const storeCalled = useApiCalledStore();
 // const RespById = ref('');
 const updateCalled = async () => {
-  await store.update(id, data.value);
+  await storeCalled.update(id, data.value);
 };
 const getById = async () => {
-  const result = await store.getById(id);
+  const result = await storeCalled.getById(id);
   if (result) {
     data.value = result;
     selectedPriority.value = listPriority.value.find(p => p.code === result.priority) || null;
@@ -122,7 +153,15 @@ const getById = async () => {
   }
 };
 
+// const getAllUsers = async () => {
+//   const result = await userStore.getAll();
+//   if (result) {
+//     listUsersLoad.value = result;
+//   }
+// };
+
 onMounted(() => {
   getById();
+  // getAllUsers();
 });
 </script>

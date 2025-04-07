@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { defineStore } from 'pinia';
+import { format } from 'date-fns';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
@@ -15,12 +16,19 @@ interface IPropsUser {
 export const useApiUsersStore = defineStore('users', () => {
   const { t } = useI18n();
   const { $toast } = useNuxtApp();
-  // const { locale } = useI18n();
+  const { locale } = useI18n();
   const config = useRuntimeConfig();
   const API_BASE_URL = config.public.API_BASE_URL; // Obtém a URL da API do .env
 
   // Define o cookie do token sem um tempo fixo
   const accessToken = useCookie<string | null>('accessToken');
+
+  // Configuração de headers para requisições autenticadas
+  const getAuthHeaders = () => {
+    return accessToken.value
+      ? { Authorization: `Bearer ${accessToken.value}` }
+      : {};
+  };
 
   // Criar ususarios
   const signUp = async (data: Omit<IPropsUser, 'id' | 'createdAt' | 'enable'>) => {
@@ -93,5 +101,25 @@ export const useApiUsersStore = defineStore('users', () => {
     navigateTo('/login');
   };
 
-  return { signIn, signUp, logout, accessToken };
+  const getAll = async () => {
+    try {
+      const response = await axios.get<Omit<IPropsUser, 'password' | 'email'>[]>(`${API_BASE_URL}/users?page=1&limit=10000`, {
+        headers: {
+          ...getAuthHeaders(),
+          'Accept-Language': locale.value,
+        },
+      });
+
+      return response.data.map(users => ({
+        ...users,
+        createdAt: format(new Date(users.createdAt), locale.value.startsWith('pt') || locale.value.startsWith('es') ? 'dd/MM/yyyy - HH:mm:ss' : 'MM/dd/yyyy - HH:mm:ss'),
+      }));
+    }
+    catch (error) {
+      $toast.error(t('errorUpdate'));
+      return [];
+    }
+  };
+
+  return { signIn, signUp, logout, accessToken, getAll };
 });
