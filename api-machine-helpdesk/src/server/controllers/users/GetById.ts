@@ -20,6 +20,15 @@ export const GetById = async (req: Request<{id: string}>, res: Response) => {
     const id = Number(req.params.id);
     const result = await UsersProvider.getByid(id);
 
+    if (result instanceof Error ){
+      res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+        errors: {
+          default: result.message
+        }
+      });
+      return;
+    }
+
     res.json(result);
 
   } catch (error) {

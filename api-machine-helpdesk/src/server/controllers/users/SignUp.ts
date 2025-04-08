@@ -15,15 +15,13 @@ const signUpSchema = {
 
 export interface ISignUp extends yup.InferType<typeof signUpSchema.body> {}
 
-export class SignUpController {
+export const signUpValidation = validate(signUpSchema);
+
+export const signUp = async (req: Request<{},{},ISignUp>, res: Response) => {
     
-  // Middleware de validação antes do create
-  static signUpValidation = validate(signUpSchema);
-
-  static async signUp (req: Request<{},{},ISignUp>, res: Response)  {
-
+  try {
     const result = await UsersProvider.create(req.body);
-
+  
     if (result instanceof Error) {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         errors:{
@@ -32,10 +30,15 @@ export class SignUpController {
       });   
       return;
     }
- 
-    res.status(StatusCodes.CREATED).json(result);
-    return;
-  }
   
-}
+    res.status(StatusCodes.CREATED).json(result);  
+  
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: error  });
+  }
+
+};
+
+  
+
 

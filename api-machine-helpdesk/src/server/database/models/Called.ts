@@ -1,4 +1,4 @@
-import { ICalledCreate } from '../../controllers/called/CreateController';
+import { ICalledCreate } from '../../controllers/called/Create';
 
  
 export interface ICalled extends ICalledCreate {

@@ -15,13 +15,11 @@ const signInSchema = {
 
 export interface ISignIn extends yup.InferType<typeof signInSchema.body> {}
 
-export class SignInController {
+export const signInValidation = validate(signInSchema);
+
+export const signIn = async (req: Request<{},{},ISignIn>, res: Response) => {
     
-  // Middleware de validação antes do create
-  static signInValidation = validate(signInSchema);
-
-  static async signIn (req: Request<{},{},ISignIn>, res: Response)  {
-
+  try {
     const { email, password } = req.body;
 
     const result = await UsersProvider.getByEmail(email);
@@ -63,8 +61,9 @@ export class SignInController {
       return;
     
     }
- 
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: error  });
   }
   
-}
+};
 

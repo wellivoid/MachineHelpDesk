@@ -1,19 +1,14 @@
-import { CreateController } from './CreateController';  
-import { GetAllController } from './GetAllController';
-import { GetByIdController } from './GetByIdController';
-import { UpdateByIdController } from './UpdateByIdController';
-import { DeleteByIdController } from './DeleteByIdController';
+import * as create from './Create';
+import * as deleteById from './DeleteById';
+import * as getAll from './GetAll';
+import * as getById from './GetById';
+import * as update from './Update';
 
 
-export class CalledControllers {
-  static create = CreateController.create;
-  static createValidation = CreateController.createValidation;
-  static getAll = GetAllController.getAll;
-  static getAllValidation = GetAllController.getAllValidation;
-  static getById = GetByIdController.getById;
-  static getByIdValidation = GetByIdController.getByIdValidation;
-  static updateById = UpdateByIdController.updateById;
-  static updateByIdValidation = UpdateByIdController.updateByIdValidation;
-  static deleteById = DeleteByIdController.deleteById;
-  static deleteByIdValidation = DeleteByIdController.deleteByIdValidation;
-}
+export const CalledsControllers = {
+  ...create,
+  ...deleteById,
+  ... getAll,
+  ...getById,
+  ...update,
+};

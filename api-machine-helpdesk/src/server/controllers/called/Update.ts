@@ -27,14 +27,13 @@ interface IUpdateBodyProps extends yup.InferType<typeof updateSchema.body> {
   closedAt?: string;
 }
 
-export class UpdateByIdController {
-    
-  // Middleware de validação antes do create
-  static updateByIdValidation = validate(updateSchema);
+export const updateByIdValidation = validate(updateSchema);
 
-  static async updateById (req: Request<{id: string},{},IUpdateBodyProps>, res: Response)  {
+export const updateById = async (req: Request<{id: string},{},IUpdateBodyProps>, res: Response) => {
+
+  try {
     const id = Number(req.params.id);    
-    
+      
     if (!id) {
       res.status(StatusCodes.BAD_REQUEST).json({
         errors:{
@@ -43,9 +42,9 @@ export class UpdateByIdController {
       });
       return;
     }
-
+  
     const resp = await CalledProvider.getById(id);
-
+  
     // Verifica se resp é um erro antes de acessar inProgressAt
     if (resp instanceof Error) {
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -55,23 +54,23 @@ export class UpdateByIdController {
       });
       return;
     }
-    
+      
     if (req.body.status === 'inProgress' && !resp.inProgressAt) {
       req.body.inProgressAt = format(new Date(), 'yyyy-MM-dd\'T\'HH:mm:ss.SSSXXX');
     }
-
+  
     if (req.body.status === 'resolved' && !resp.resolvedAt) {
       req.body.resolvedAt = format(new Date(), 'yyyy-MM-dd\'T\'HH:mm:ss.SSSXXX');
     }
-
+  
     if (req.body.status === 'closed' && !resp.closedAt) {
       req.body.closedAt = format(new Date(), 'yyyy-MM-dd\'T\'HH:mm:ss.SSSXXX');
     }
-
-    
+  
+      
     const result = await CalledProvider.updateById(id, req.body);
-    
-
+      
+  
     if (result instanceof Error ){
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         errors: {
@@ -80,10 +79,12 @@ export class UpdateByIdController {
       });
       return;
     }
-
-    res.status(StatusCodes.NO_CONTENT).json(result);
-    return;
+  
+    res.status(StatusCodes.NO_CONTENT).json(result);  
+      
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: error  });
   }
   
-}
+};
 

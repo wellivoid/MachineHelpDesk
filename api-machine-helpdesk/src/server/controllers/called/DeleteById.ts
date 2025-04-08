@@ -12,38 +12,36 @@ const deleteByIdSchema = {
 
 //interface IParamProps extends yup.InferType<typeof deleteByIdSchema.params> {}
 
-export class DeleteByIdController {
-    
-  // Middleware de validação antes do create
-  static deleteByIdValidation = validate(deleteByIdSchema);
+export const deleteByIdValidation = validate(deleteByIdSchema);
 
-  static async deleteById (req: Request<{ id: string }>, res: Response)  {
-    
+
+export const deleteById = async (req: Request<{ id: string }>, res: Response) => {
+  
+  try {
     const id = Number(req.params.id);
-          
+    
     if (!req.params.id){
       res.status(StatusCodes.BAD_REQUEST).json({
         errors: {
           default: 'O parâmetro "id" precisa ser informado'
         }
       });      
-      return;
     }
-    
     const result = await CalledProvider.deleteById(id);
-     
+
     if (result instanceof Error ){
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
         errors: {
           default: result.message
         }
       });
-      return;
     }
-  
+    
     res.status(StatusCodes.NO_CONTENT).json();
-    return;
+
+  } catch (error) {
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ errors: error  });
   }
-  
-}
+
+};
 
