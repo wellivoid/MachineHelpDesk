@@ -47,4 +47,6 @@ export const pt = {
   errorCreateUser: 'Erro ao criar o usuário',
   errorLogin: 'Erro de login',
   expiredToken: 'Token expirado',
+  responsible: 'Responsável',
+  users: 'Usuários',
 };

@@ -13,6 +13,13 @@ interface IPropsUser {
   createdAt: string;
 }
 
+export interface IUserPublic {
+  id: number;
+  name: string;
+  enable: boolean;
+  createdAt: Date;
+}
+
 export const useApiUsersStore = defineStore('users', () => {
   const { t } = useI18n();
   const { $toast } = useNuxtApp();
@@ -118,6 +125,20 @@ export const useApiUsersStore = defineStore('users', () => {
     catch (error) {
       $toast.error(t('errorUpdate'));
       return [];
+    }
+  };
+
+  // Get By Id
+  const getById = async (id: number) => {
+    try {
+      const response = await axios.get<IUserPublic>(`${API_BASE_URL}/users/${id}`, {
+        headers: getAuthHeaders(),
+      });
+
+      return response.data;
+    }
+    catch (error) {
+      $toast.error(`Erro ao abrir o chamado do id: ${id}`);
     }
   };
 

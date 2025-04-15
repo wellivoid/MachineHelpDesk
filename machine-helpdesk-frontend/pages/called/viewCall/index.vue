@@ -42,16 +42,17 @@
             class="w-full md:w-56"
           />
         </div>
-        <!-- <div class="flex flex-col">
-          <label for="vw-responsavel">{{ $t('responsavel') }}</label>
+        <div class="flex flex-col">
+          <label for="vw-responsavel">{{ $t('responsible') }}</label>
           <Select
             id="vw-responsavel"
             v-model="selectedUser"
+            :disabled="ulevel == 'common' ? true : false"
             :options="listUsers"
             option-label="name"
             class="w-full md:w-56"
           />
-        </div> -->
+        </div>
       </div>
     </div>
     <div>
@@ -68,7 +69,8 @@
 const { t } = useI18n();
 const route = useRoute();
 const id = Number(route.query.id);
-// const userStore = useApiUsersStore();
+const userStore = useApiUsersStore();
+const { ulevel } = useAuth();
 
 interface IPropsData {
   title: string;
@@ -76,15 +78,15 @@ interface IPropsData {
   priority: string;
   userId: number;
   status: string;
-  // idResposavel: number;
+  idUserResponsable?: number;
 };
 
-// interface IPropsUsers {
-//   createdAt: string;
-//   name: string;
-//   id: number;
-//   enable: boolean;
-// }
+interface IPropsUsers {
+  id: number;
+  name: string;
+  enable: boolean;
+  createdAt: string;
+}
 
 const data = ref<IPropsData>({
   title: '',
@@ -92,7 +94,7 @@ const data = ref<IPropsData>({
   priority: '',
   userId: 1,
   status: 'open',
-  // idResposavel: 0,
+  idUserResponsable: 0,
 });
 
 const listPriority = computed(() => [
@@ -108,20 +110,30 @@ const listStatus = computed(() => [
   { name: t('closed'), code: 'closed' },
 ]);
 
-// const listUsersLoad = ref<IPropsUsers[]>();
-// const listUsers = computed(() => [
-//   { name: t('low'), code: 'low' },
-//   { name: t('medium'), code: 'medium' },
-//   { name: t('high'), code: 'high' },
-// ]);
+const listUsers = computed(() => formattedList());
+
+const listUsersLoad = ref<IPropsUsers[]>([]);
+const formattedList = () => {
+  return listUsersLoad.value.map(item => ({
+    name: item.name,
+    code: item.id,
+  }));
+};
+
+const getAllUsers = async () => {
+  const result = await userStore.getAll();
+  if (result) {
+    listUsersLoad.value = result;
+  }
+};
 
 // Computed para refletir e modificar `data.status`
-// const selectedUser = computed({
-// get: () => listUsers.value.find(p => p.code === data.value.idResposavel) || null,
-// set: (newPriority: { code: string } | null) => {
-// if (newPriority) data.value.priority = newPriority.code;
-// },
-// });
+const selectedUser = computed({
+  get: () => listUsers.value.find(p => p.code === data.value.idUserResponsable) || null,
+  set: (newUser: { code: string } | null) => {
+    if (newUser) data.value.idUserResponsable = Number(newUser.code);
+  },
+});
 
 // Computed para refletir e modificar `data.priority`
 const selectedPriority = computed({
@@ -153,15 +165,8 @@ const getById = async () => {
   }
 };
 
-// const getAllUsers = async () => {
-//   const result = await userStore.getAll();
-//   if (result) {
-//     listUsersLoad.value = result;
-//   }
-// };
-
 onMounted(() => {
   getById();
-  // getAllUsers();
+  getAllUsers();
 });
 </script>

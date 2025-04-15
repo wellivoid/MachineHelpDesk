@@ -79,26 +79,5 @@
 </template>
 
 <script setup>
-import { IconsUploadIcon } from '#components';
-
 const { t } = useI18n();
-const selectRow = (data) => {
-  navigateTo(`/called/viewcall?id=${data.id}`);
-};
-
-const getAllCalled = ref([]);
-const fetchCalls = async () => {
-  const store = useApiCalledStore();
-  getAllCalled.value = await store.getAll();
-};
-
-// const fetchTotalCountCalld = async () => {
-//   const store = useApiCalledStore();
-//   return store.getTotalCountCalled();
-// };
-
-onMounted(() => {
-  fetchCalls();
-  // fetchTotalCountCalld();
-});
 </script>

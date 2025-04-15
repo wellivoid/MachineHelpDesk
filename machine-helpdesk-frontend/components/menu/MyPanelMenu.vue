@@ -25,6 +25,8 @@
 <script setup lang="ts">
 const { t } = useI18n();
 const { logout } = useApiUsersStore();
+const { ulevel } = useAuth();
+
 const items = computed(() => [
   {
     label: t('called'),
@@ -44,9 +46,24 @@ const items = computed(() => [
           navigateTo('/called/create');
         },
       },
+      {
+        label: t('users'),
+        icon: 'pi  pi-users',
+        visible: ulevel.value === 'common' ? false : true,
+        command: () => {
+          navigateTo('/users');
+        },
+      },
     ],
   },
 ]);
+
+// const visu = ref(false);
+
+// onMounted (() => {
+//   visu.value = ulevel.value === 'commun' ? false : true;
+// });
+//
 </script>
 
 <!-- <style lang="" scoped>

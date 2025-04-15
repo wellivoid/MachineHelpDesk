@@ -5,24 +5,34 @@ import { ICalled } from '../../models';
 
 
 
-export const getAll = async (page: number,limit: number, filter: string, status:string, userId = 0): Promise<ICalled[] | Error> => {
+export const getAll = async (page: number,limit: number, filter: string, status:string, userId:number): Promise<ICalled[] | Error> => {
   try {
-    const result = await Knex(EtableNames.called)
-      .select('*')
-      .where('userId', '=', Number(userId))
-      .orWhere('status', '=', status)
-      .orWhere('title', 'like' ,`%${filter}%`)
-      .orWhere('description', 'like' ,`%${filter}%`)
-      .offset((page - 1) * limit)
-      .limit(limit);
-        
-    if (userId > 0 && result.every(item => item.id !== userId)){
-      const resultById: ICalled | undefined = await Knex(EtableNames.called)
-        .select('*')
-        .where('userId', '=', userId)
-        .first();
-      if (resultById) return [...result, resultById];
+    // console.log(userId);
+    const query = Knex(EtableNames.called)
+      .select('*');
+
+    if (userId) {
+      query.where('userId', '=', userId)
+        .andWhere(builder => {
+          builder
+            .where('status', '=', status)
+            .orWhere('title', 'like', `%${filter}%`)
+            .orWhere('description', 'like', `%${filter}%`)
+            .offset((page - 1) * limit)
+            .limit(limit);
+        });
+    } else {
+      query.where(builder => {
+        builder
+          .where('status', '=', status)
+          .orWhere('title', 'like', `%${filter}%`)
+          .orWhere('description', 'like', `%${filter}%`)
+          .offset((page - 1) * limit)
+          .limit(limit);
+      });
     }
+
+    const result = await query;
 
     return result;
     

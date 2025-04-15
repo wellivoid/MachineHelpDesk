@@ -11,12 +11,17 @@ const getAlldSchema = {
     limit: yup.number().notRequired().moreThan(0),
     filter: yup.string().notRequired(),
     status: yup.string().notRequired(),
+    // userId: yup.number().transform(value => (isNaN(value) ? undefined : value)).notRequired()
+    userId: yup.number()
+      .transform((_, originalValue) => {
+        const parsed = Number(originalValue);
+        return isNaN(parsed) ? undefined : parsed;
+      })
+      .notRequired()
   })
 };
 
-interface IQueryProps extends yup.InferType<typeof getAlldSchema.query> {
-  userId?: number; // Tornar opcional para evitar erro de tipagem
-}
+interface IQueryProps extends yup.InferType<typeof getAlldSchema.query> {}
 
 export const getAllValidation = validate(getAlldSchema);
 
@@ -26,8 +31,11 @@ export const getAll = async (req: Request<{},{},{},IQueryProps>, res: Response) 
     
     const { page, limit, filter, status, userId } = req.query;
     
-    const result = await CalledProvider.getAll(page || 1, limit || 10, filter || '', status || '', userId);
+    const result = await CalledProvider.getAll(page || 1, limit || 10, filter || '', status || '', userId ?? 0);
     const count = await CalledProvider.count(filter || '');
+    
+    // console.log('userId recebido:', req.query.userId);
+    // console.log('userId após validação:', userId);
 
     if (result instanceof Error ){
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

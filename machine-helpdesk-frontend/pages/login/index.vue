@@ -1,11 +1,5 @@
 <template>
   <div class="card flex justify-center">
-    <!-- <Button
-      label="Login"
-      icon="pi pi-user"
-      @click="visible = true"
-    /> -->
-
     <Dialog
       :visible="true"
       pt:root:class="!border-0 !bg-transparent"
@@ -37,6 +31,7 @@
               v-model="data.password"
               class="!bg-white/50 !border-0 !p-4 !text-primary-50 w-80"
               type="password"
+              @keyup.enter="login"
             />
           </div>
           <div class="flex items-center gap-4">
@@ -61,6 +56,12 @@
 
 <script setup lang="ts">
 const { t } = useI18n();
+// const handleKey = (e: KeyboardEvent) => {
+//   if (e.key === 'Enter') {
+//     login();
+//   }
+// };
+
 definePageMeta({
   layout: 'login',
 });

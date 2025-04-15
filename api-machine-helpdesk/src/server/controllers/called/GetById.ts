@@ -37,6 +37,7 @@ export const getById = async (req: Request<{id: string}>, res: Response) => {
       return;
     }
   
+    // console.log(result);
     res.status(StatusCodes.OK).json(result);
     
   } catch (error) {

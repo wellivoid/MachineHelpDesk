@@ -25,7 +25,7 @@ export const signIn = async (req: Request<{},{},ISignIn>, res: Response) => {
     const result = await UsersProvider.getByEmail(email);
 
 
-    if (result instanceof Error) {
+    if (result instanceof Error || !result.enable) {
       res.status(StatusCodes.UNAUTHORIZED).json({
         errors:{
           default: 'Email ou password inválidos'//result.message
@@ -41,7 +41,7 @@ export const signIn = async (req: Request<{},{},ISignIn>, res: Response) => {
         errors:{
           default: 'Email ou password inválidos'//result.message
         }
-      }); 
+      });
     } else {
       const accessToken = JWTService.sign({ 
         uid:result.id, 

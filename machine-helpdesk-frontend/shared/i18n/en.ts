@@ -47,4 +47,6 @@ export const en = {
   errorCreateUser: 'Error creating user',
   errorLogin: 'Erro login',
   expiredToken: 'Expired token',
+  responsible: 'Responsible',
+  users: 'Users',
 };

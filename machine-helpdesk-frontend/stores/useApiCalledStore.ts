@@ -11,6 +11,7 @@ interface IPropsCalled {
   userId: number;
   status: string;
   createdAt: string;
+  idUserResponsable?: number;
 }
 
 export const useApiCalledStore = defineStore('called', () => {
@@ -18,6 +19,8 @@ export const useApiCalledStore = defineStore('called', () => {
   const { $toast } = useNuxtApp();
   const { locale } = useI18n();
   const config = useRuntimeConfig();
+  const { uid, ulevel } = useAuth();
+  const totalCountCalled = ref(0);
   const API_BASE_URL = config.public.API_BASE_URL; // Obtém a URL da API do .env
 
   // Obtém o token do cookie
@@ -50,13 +53,26 @@ export const useApiCalledStore = defineStore('called', () => {
 
   // GET ALL
   const getAll = async () => {
+    let url: string;
+
     try {
-      const response = await axios.get<IPropsCalled[]>(`${API_BASE_URL}/called?page=1&limit=10000`, {
+      if (ulevel.value === 'common' && uid.value) {
+        url = `${API_BASE_URL}/called?page=1&limit=10000&userId=${uid.value}`;
+        // console.log('uid.value:', uid.value);
+      }
+      else {
+        url = `${API_BASE_URL}/called?page=1&limit=10000`;
+      }
+
+      // const response = await axios.get<IPropsCalled[]>(`${API_BASE_URL}/called?page=1&limit=10000`, {
+      const response = await axios.get<IPropsCalled[]>(`${url}`, {
         headers: {
           ...getAuthHeaders(),
           'Accept-Language': locale.value,
         },
       });
+
+      totalCountCalled.value = Number(response.headers['x-total-count']);
 
       $toast.success(t('updateCompleted'));
       return response.data.map(chamado => ({
@@ -71,20 +87,28 @@ export const useApiCalledStore = defineStore('called', () => {
   };
 
   // Informar quantidade de chamados no banco
-  const totalCountCalled = ref(0);
-  const getTotalCountCalled = async () => {
-    try {
-      const response = await axios.get(`${API_BASE_URL}/called?page=1&limit=10000`, {
-        headers: getAuthHeaders(),
-      });
+  // const getTotalCountCalled = async () => {
+  //   let url: string;
 
-      totalCountCalled.value = Number(response.headers['x-total-count']);
-      return totalCountCalled.value;
-    }
-    catch (error) {
-      $toast.error(t('errorUpdate'));
-    }
-  };
+  //   try {
+  //     if (ulevel.value === 'common' && uid.value) {
+  //       url = `${API_BASE_URL}/called?page=1&limit=10000&userId=${uid.value}`;
+  //       console.log('uid.value:', uid.value);
+  //     }
+  //     else {
+  //       url = `${API_BASE_URL}/called?page=1&limit=10000`;
+  //     }
+  //     const response = await axios.get(`${url}`, {
+  //       headers: getAuthHeaders(),
+  //     });
+
+  //     totalCountCalled.value = Number(response.headers['x-total-count']);
+  //     return totalCountCalled.value;
+  //   }
+  //   catch (error) {
+  //     $toast.error(t('errorUpdate'));
+  //   }
+  // };
 
   // Get By Id
   const getById = async (id: number) => {
@@ -114,5 +138,6 @@ export const useApiCalledStore = defineStore('called', () => {
     }
   };
 
-  return { create, getAll, getTotalCountCalled, totalCountCalled, getById, update };
+  // return { create, getAll, getTotalCountCalled, totalCountCalled, getById, update };
+  return { create, getAll, totalCountCalled, getById, update };
 });
