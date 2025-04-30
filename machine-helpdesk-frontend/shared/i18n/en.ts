@@ -49,4 +49,5 @@ export const en = {
   expiredToken: 'Expired token',
   responsible: 'Responsible',
   users: 'Users',
+  enable: 'Enable',
 };

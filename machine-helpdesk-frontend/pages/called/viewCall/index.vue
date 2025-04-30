@@ -37,6 +37,7 @@
           <Select
             id="vw-status"
             v-model="selectedStatus"
+            :disabled="enableStatusEdit"
             :options="listStatus"
             option-label="name"
             class="w-full md:w-56"
@@ -84,7 +85,7 @@ interface IPropsData {
 interface IPropsUsers {
   id: number;
   name: string;
-  enable: boolean;
+  enableStatus: boolean;
   createdAt: string;
 }
 
@@ -103,12 +104,22 @@ const listPriority = computed(() => [
   { name: t('high'), code: 'high' },
 ]);
 
-const listStatus = computed(() => [
-  { name: t('open'), code: 'open' },
-  { name: t('inProgress'), code: 'inProgress' },
-  { name: t('resolved'), code: 'resolved' },
-  { name: t('closed'), code: 'closed' },
-]);
+const listStatus = computed(() => {
+  if (ulevel.value == 'common' && data.value.status == 'resolved') {
+    return [
+      { name: t('resolved'), code: 'resolved' },
+      { name: t('closed'), code: 'closed' },
+    ];
+  }
+  else {
+    return [
+      { name: t('open'), code: 'open' },
+      { name: t('inProgress'), code: 'inProgress' },
+      { name: t('resolved'), code: 'resolved' },
+      { name: t('closed'), code: 'closed' },
+    ];
+  }
+});
 
 const listUsers = computed(() => formattedList());
 
@@ -120,10 +131,22 @@ const formattedList = () => {
   }));
 };
 
+interface IUserApiResponse {
+  id: number;
+  name: string;
+  enable: boolean;
+  createdAt: string;
+}
+
 const getAllUsers = async () => {
   const result = await userStore.getAll();
   if (result) {
-    listUsersLoad.value = result;
+    listUsersLoad.value = result.map((item: IUserApiResponse) => ({
+      id: item.id,
+      name: item.name,
+      enableStatus: item.enable, // adaptando o campo aqui
+      createdAt: item.createdAt,
+    }));
   }
 };
 
@@ -164,6 +187,10 @@ const getById = async () => {
     selectedStatus.value = listStatus.value.find(p => p.code === result.status) || null;
   }
 };
+
+const enableStatusEdit = computed(() => {
+  return selectedStatus.value?.code == 'resolved' ? false : ulevel.value == 'common' ? true : false;
+});
 
 onMounted(() => {
   getById();

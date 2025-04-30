@@ -48,5 +48,6 @@ export const es = {
   errorLogin: 'Error de inicio de sesión',
   expiredToken: 'Token caducado',
   responsible: 'Responsable',
+  enable: 'Habilite',
   users: 'Usuarios',
 };
