@@ -32,9 +32,9 @@ const userTestSeed: Omit<IUser,'id' | 'createdAt' | 'enable'>[] = [
     level: 'master'
   },
   {
-    name: 'Wellington S.',
-    email:'welli@gmail.com',
+    name: 'Admin',
+    email:'admin@admin.com',
     password: '123456',
-    level: 'master'
+    level: 'admin'
   }
 ];

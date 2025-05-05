@@ -14,7 +14,7 @@
             <label
               for="userEmail"
               class="text-primary-50 font-semibold"
-            >{{ $t('email') }}</label>
+            >{{ t('email') }}</label>
             <InputText
               id="userEmail"
               v-model="data.email"
@@ -25,7 +25,7 @@
             <label
               for="password"
               class="text-primary-50 font-semibold"
-            >{{ $t('password') }}</label>
+            >{{ t('password') }}</label>
             <InputText
               id="password"
               v-model="data.password"

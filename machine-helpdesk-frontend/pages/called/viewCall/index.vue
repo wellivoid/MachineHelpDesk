@@ -2,7 +2,7 @@
   <div class="p-1 flex flex-col justify-between h-full">
     <div>
       <div class="flex flex-col">
-        <label for="vw-title">{{ $t('title') }}</label>
+        <label for="vw-title">{{ t('title') }}</label>
         <InputText
           id="vw-title"
           v-model="data.title"
@@ -11,7 +11,7 @@
         />
       </div>
       <div class="flex flex-col">
-        <label for="vw-description">{{ $t('description') }}</label>
+        <label for="vw-description">{{ t('description') }}</label>
         <Textarea
           id="vw-description"
           v-model="data.description"
@@ -22,7 +22,7 @@
       </div>
       <div class="flex flex-wrap items-center justify-between gap-2 ">
         <div class="flex flex-col">
-          <label for="vw-priority">{{ $t('priority') }}</label>
+          <label for="vw-priority">{{ t('priority') }}</label>
           <Select
             id="vw-priority"
             v-model="selectedPriority"
@@ -33,7 +33,7 @@
           />
         </div>
         <div class="flex flex-col">
-          <label for="vw-status">{{ $t('status') }}</label>
+          <label for="vw-status">{{ t('status') }}</label>
           <Select
             id="vw-status"
             v-model="selectedStatus"
@@ -44,7 +44,7 @@
           />
         </div>
         <div class="flex flex-col">
-          <label for="vw-responsavel">{{ $t('responsible') }}</label>
+          <label for="vw-responsavel">{{ t('responsible') }}</label>
           <Select
             id="vw-responsavel"
             v-model="selectedUser"

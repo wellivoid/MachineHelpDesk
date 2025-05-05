@@ -2,7 +2,7 @@
   <div class="p-1 flex flex-col justify-between h-full">
     <div>
       <div class="flex flex-col">
-        <label for="createTitle">{{ $t('title') }}</label>
+        <label for="createTitle">{{ t('title') }}</label>
         <InputText
           id="createTitle"
           v-model="data.title"
@@ -11,7 +11,7 @@
         />
       </div>
       <div class="flex flex-col">
-        <label for="createDescription">{{ $t('description') }}</label>
+        <label for="createDescription">{{ t('description') }}</label>
         <Textarea
           id="createDescription"
           v-model="data.description"
@@ -21,7 +21,7 @@
         />
       </div>
       <div class="flex flex-col">
-        <label for="createPriority">{{ $t('priority') }}</label>
+        <label for="createPriority">{{ t('priority') }}</label>
         <Select
           id="createPriority"
           v-model="selectedPriority"

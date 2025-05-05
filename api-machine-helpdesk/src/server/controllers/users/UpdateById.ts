@@ -11,6 +11,7 @@ const userSchema = {
   body: yup.object({
     name: yup.string().required().min(3),
     enable: yup.boolean().required(),
+    // level: yup.string().notRequired().oneOf(['admin', 'master', 'common']),
   })
 };
 
@@ -30,7 +31,7 @@ export const UpdateById = async (req: Request<{id: string},{},IUserBodyProps >, 
         }
       });
       return;
-    }
+    }   
 
     const result = await UsersProvider.updateById(id, req.body);
     //

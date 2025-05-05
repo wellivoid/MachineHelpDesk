@@ -12,7 +12,7 @@
     >
       <template #header>
         <div class="flex flex-wrap items-center justify-between gap-2">
-          <span class="text-2xl font-bold">{{ $t('users') }}</span>
+          <span class="text-2xl font-bold">{{ t('users') }}</span>
 
           <i
             class="pi pi-sync mr-3 bg-slate-200 p-2 rounded hover:rotate-180 transition-all duration-500"
