@@ -17,3 +17,16 @@ export interface IUserPublic {
   createdAt: Date;
 }
 
+export interface IUserPrivate {
+  id: number;
+  name: string;
+  enable: boolean;
+  createdAt: Date;
+  level: string;
+}
+export interface IUserUpdate {
+  name: string;
+  enable: boolean;
+  level: string;
+  createdAt: Date;
+}

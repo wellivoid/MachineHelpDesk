@@ -23,6 +23,7 @@ router.post('/register',UserControllers.signUpValidation, UserControllers.signUp
 
 router.get('/users', ensureAuthenticated, ensureAuthorization(['all']), UserControllers.getAllValidation, UserControllers.getAll); 
 router.get('/users/:id', ensureAuthenticated, ensureAuthorization(['all']), UserControllers.getByIdValidation, UserControllers.GetById);
+router.get('/users/lv/:id', ensureAuthenticated, ensureAuthorization(['master']), UserControllers.getByIdLvValidation, UserControllers.GetByIdLv);
 router.put('/users/:id', ensureAuthenticated, ensureAuthorization(['master']), UserControllers.updateByIdValidation, UserControllers.UpdateById);
 
 

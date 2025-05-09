@@ -1,12 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { EtableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
+import { IUserUpdate } from '../../models';
 
-export interface IUserUpdate {
-  name: string;
-  enable: boolean;
-  // level?: string;
-}
 
 export const updateById = async (id: number, dataUser: IUserUpdate): Promise<void | Error> => {
   try {

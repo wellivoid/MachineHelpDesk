@@ -3,6 +3,7 @@ import { UsersProvider } from '../../database/providers/users';
 import { StatusCodes } from 'http-status-codes';
 import * as yup from 'yup';
 import validate from '../../shared/middlewares/Validation';
+import { IUserUpdate } from '../../database/models';
 
 const userSchema = {
   params: yup.object({
@@ -11,7 +12,7 @@ const userSchema = {
   body: yup.object({
     name: yup.string().required().min(3),
     enable: yup.boolean().required(),
-    // level: yup.string().notRequired().oneOf(['admin', 'master', 'common']),
+    level: yup.string().notRequired().oneOf(['admin', 'master', 'common']),
   })
 };
 
@@ -33,7 +34,41 @@ export const UpdateById = async (req: Request<{id: string},{},IUserBodyProps >, 
       return;
     }   
 
-    const result = await UsersProvider.updateById(id, req.body);
+    const dataUser = await UsersProvider.getByidCompl(id);
+    if (dataUser instanceof Error) {
+      res.status(StatusCodes.NOT_FOUND).json({
+        errors: {
+          default: dataUser.message
+        }
+      });
+      return;
+    }
+   
+    if (dataUser.level !== 'master' && dataUser.level !== 'admin' && dataUser.level !== 'common') {
+      res.status(StatusCodes.NOT_FOUND).json({
+        errors: {
+          default:'Descrição de level incorreto do DB'
+        }
+      });
+      return;
+    }
+
+    const data: IUserUpdate = {
+      name: req.body.name,
+      enable: req.body.enable,
+      createdAt: dataUser.createdAt,
+      level: ''
+    };
+
+    if (req.body.level === 'admin' || req.body.level === 'master' || req.body.level === 'common') {
+      data.level = req.body.level;
+    } else {
+      data.level = dataUser.level;
+    }
+
+    const result = await UsersProvider.updateById(id, data);
+
+
     //
     if (result instanceof Error ){
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({

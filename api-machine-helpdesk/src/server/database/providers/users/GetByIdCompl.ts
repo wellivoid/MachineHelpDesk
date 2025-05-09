@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { EtableNames } from '../../ETableNames';
 import { Knex } from '../../knex';
-import { IUserPublic } from '../../models';
+import { IUser } from '../../models';
 
 
 
-export const getById = async (id: number): Promise<IUserPublic | Error> => {
+export const getByidCompl = async (id: number): Promise<IUser | Error> => {
   try {
     const result = await Knex(EtableNames.user)
       .select('*')
@@ -13,13 +13,16 @@ export const getById = async (id: number): Promise<IUserPublic | Error> => {
       .first();
         
     if (result) {
-      const { id, name, enable, createdAt } = result;
+      const { id, name, enable, createdAt, email, password, level } = result;
 
-      const res:IUserPublic = {
+      const res:IUser = {
         id: id,
         name: name,
         enable: enable,
-        createdAt: createdAt
+        createdAt: createdAt,
+        email: email,
+        password: password,
+        level: level
       };
 
       return res;

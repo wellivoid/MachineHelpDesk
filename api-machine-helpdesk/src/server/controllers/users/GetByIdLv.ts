@@ -10,15 +10,15 @@ const userSchema = {
   })
 };
 
-export const getByIdValidation = validate(userSchema);
+export const getByIdLvValidation = validate(userSchema);
 
 // interface IUserProps  extends yup.InferType<typeof userSchema.params>{}
 
-export const GetById = async (req: Request<{id: string}>, res: Response) => {
+export const GetByIdLv = async (req: Request<{id: string}>, res: Response) => {
 
   try {
     const id = Number(req.params.id);
-    const result = await UsersProvider.getById(id);
+    const result = await UsersProvider.getByidCompl(id);
 
     if (result instanceof Error ){
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -29,7 +29,8 @@ export const GetById = async (req: Request<{id: string}>, res: Response) => {
       return;
     }
 
-    res.json(result);
+    
+    res.json({ 'lv': result.level });
 
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Erro interno no servidor', details: error });
