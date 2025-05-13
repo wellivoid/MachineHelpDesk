@@ -50,4 +50,13 @@ export const es = {
   responsible: 'Responsable',
   enable: 'Habilite',
   users: 'Usuarios',
+  level: 'Level',
+  master: 'Master',
+  admin: 'Admin',
+  common: 'Common',
+  true: 'True',
+  false: 'False',
+  users_viewUser: '- Ver usuario',
+  enabled: 'Habilitado',
+  disabled: 'Deshabilitado',
 };

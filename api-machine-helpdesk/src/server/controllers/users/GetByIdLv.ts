@@ -18,7 +18,7 @@ export const GetByIdLv = async (req: Request<{id: string}>, res: Response) => {
 
   try {
     const id = Number(req.params.id);
-    const result = await UsersProvider.getByidCompl(id);
+    const result = await UsersProvider.getByIdCompl(id);
 
     if (result instanceof Error ){
       res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
@@ -30,7 +30,7 @@ export const GetByIdLv = async (req: Request<{id: string}>, res: Response) => {
     }
 
     
-    res.json({ 'lv': result.level });
+    res.json(result);
 
   } catch (error) {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Erro interno no servidor', details: error });

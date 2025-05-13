@@ -34,7 +34,7 @@ export const UpdateById = async (req: Request<{id: string},{},IUserBodyProps >, 
       return;
     }   
 
-    const dataUser = await UsersProvider.getByidCompl(id);
+    const dataUser = await UsersProvider.getByIdCompl(id);
     if (dataUser instanceof Error) {
       res.status(StatusCodes.NOT_FOUND).json({
         errors: {

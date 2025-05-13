@@ -5,7 +5,7 @@ import { IUser } from '../../models';
 
 
 
-export const getByidCompl = async (id: number): Promise<IUser | Error> => {
+export const getByIdCompl = async (id: number): Promise< Omit<IUser, 'password'> | Error> => {
   try {
     const result = await Knex(EtableNames.user)
       .select('*')
@@ -13,15 +13,15 @@ export const getByidCompl = async (id: number): Promise<IUser | Error> => {
       .first();
         
     if (result) {
-      const { id, name, enable, createdAt, email, password, level } = result;
+      const { id, name, enable, createdAt, email, level } = result;
 
-      const res:IUser = {
+      const res: Omit<IUser, 'password' > = {
         id: id,
         name: name,
         enable: enable,
         createdAt: createdAt,
         email: email,
-        password: password,
+        // password: password,
         level: level
       };
 

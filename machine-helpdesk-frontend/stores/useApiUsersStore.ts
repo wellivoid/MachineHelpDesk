@@ -9,15 +9,22 @@ interface IPropsUser {
   name: string;
   email: string;
   password: string;
-  enable: boolean;
+  level: string;
+  enable: number;
   createdAt: string;
 }
 
 export interface IUserPublic {
   id: number;
   name: string;
-  enable: boolean;
+  enable: number;
   createdAt: Date;
+}
+
+export interface IUserUpdate {
+  name: string;
+  level: string;
+  enable: number;
 }
 
 export const useApiUsersStore = defineStore('users', () => {
@@ -131,16 +138,75 @@ export const useApiUsersStore = defineStore('users', () => {
   // Get By Id
   const getById = async (id: number) => {
     try {
-      const response = await axios.get<IUserPublic>(`${API_BASE_URL}/users/${id}`, {
+      const response = await axios.get<Omit<IPropsUser, 'password'>>(`${API_BASE_URL}/users/lv/${id}`, {
         headers: getAuthHeaders(),
       });
 
-      return response.data;
+      return {
+        name: response.data.name,
+        level: response.data.level,
+        enable: response.data.enable,
+        createdAt: format(new Date(response.data.createdAt), locale.value.startsWith('pt') || locale.value.startsWith('es') ? 'dd/MM/yyyy - HH:mm:ss' : 'MM/dd/yyyy - HH:mm:ss'),
+        email: response.data.email,
+      };
     }
     catch (error) {
       $toast.error(`Erro ao abrir o chamado do id: ${id}`);
     }
   };
 
-  return { signIn, signUp, logout, accessToken, getAll };
+  const getAllLv = async () => {
+    try {
+      const response = await axios.get<Omit<IPropsUser, 'password' | 'email'>[]>(`${API_BASE_URL}/users?page=1&limit=10000`, {
+        headers: {
+          ...getAuthHeaders(),
+          'Accept-Language': locale.value,
+        },
+      });
+
+      // Resolve all promises returned by the map function
+      const listUsersLv = await Promise.all(
+        response.data.map(async (user) => {
+          const lvResponse = await axios.get(`${API_BASE_URL}/users/lv/${user.id}`, {
+            headers: {
+              ...getAuthHeaders(),
+              'Accept-Language': locale.value,
+            },
+          });
+
+          return {
+            ...user,
+            lv: lvResponse.data.level, // Extract `lv` from the response
+            createdAt: format(
+              new Date(user.createdAt),
+              locale.value.startsWith('pt') || locale.value.startsWith('es')
+                ? 'dd/MM/yyyy - HH:mm:ss'
+                : 'MM/dd/yyyy - HH:mm:ss',
+            ),
+          };
+        }),
+      );
+      return listUsersLv;
+    }
+    catch (error) {
+      $toast.error('Erro ao carregar os usuários.');
+      return [];
+    }
+  };
+
+  // Update user
+  const update = async (id: number, data: Omit<IUserPublic, 'id' | 'createdAt'>) => {
+    try {
+      const response = await axios.put(`${API_BASE_URL}/users/${id}`, data, {
+        headers: getAuthHeaders(),
+      });
+
+      if (response.status === 204) navigateTo('/users');
+    }
+    catch (error) {
+      $toast.error(t('errorUpdate'));
+    }
+  };
+
+  return { signIn, signUp, logout, accessToken, getAll, getAllLv, update, getById };
 });

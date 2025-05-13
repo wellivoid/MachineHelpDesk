@@ -50,4 +50,13 @@ export const pt = {
   responsible: 'Responsável',
   enable: 'Habilitar',
   users: 'Usuários',
+  level: 'Nivel',
+  master: 'Master',
+  admin: 'Admin',
+  common: 'Comum',
+  true: 'True',
+  false: 'False',
+  users_viewUser: '- Visualizar usuário',
+  enabled: 'Habilitado',
+  disabled: 'Desabilitado',
 };
