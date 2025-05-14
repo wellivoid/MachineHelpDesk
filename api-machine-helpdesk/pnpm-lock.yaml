@@ -46,7 +46,7 @@ importers:
         specifier: 1.0.8
         version: 1.0.8
       '@types/bcryptjs':
-        specifier: ^2.4.6
+        specifier: 2.4.6
         version: 2.4.6
       '@types/cors':
         specifier: 2.8.17
@@ -55,7 +55,7 @@ importers:
         specifier: 5.0.0
         version: 5.0.0
       '@types/jsonwebtoken':
-        specifier: ^9.0.9
+        specifier: 9.0.9
         version: 9.0.9
       '@types/node':
         specifier: 22.13.1
